@@ -1,0 +1,62 @@
+module UI
+  class FieldSetRender
+     
+     attr_reader :app
+     
+     #
+     # Initialize
+     #
+     def initialize(name, app)
+
+        @name = name
+        @app = app
+        
+     end
+     
+     #
+     # Renders a resource
+     # @param [String] resource_name
+     #   To get the template
+     # @param [String] subsystem
+     #   To get the template
+     # @param [Hash] options
+     #   To extract information
+     #
+     def render(resource_type, subsystem='', options={})
+
+      template_name = ["fieldset-render-#{@name}"] 
+      template_name << "-#{subsystem}" if subsystem and subsystem.to_s.strip.length > 0       
+      template_name << "-#{resource_type}"
+      template_name = template_name.join
+            
+      template_path = find_template(template_name) 
+      
+      puts "template_path : #{template_path}"
+           
+      template = Tilt.new(template_path)
+      the_render = template.render(@app, options)                                  
+            
+      the_render
+     
+     end
+  
+     # Finds the template to render the content
+     #
+     #
+     def find_template(name)
+      
+        # Search in theme path
+        template_path = Themes::ThemeManager.instance.selected_theme.resource_path("#{name}.erb",'template','ui') 
+         
+        # Search in the project
+        if not template_path
+           path = app.get_path(name) #File.expand_path(File.join(File.dirname(__FILE__), '..', 'views', "#{name}-fieldset-render.erb"))                                 
+           template_path = path if File.exist?(path)
+        end
+                
+        template_path
+       
+    end #find_template
+     
+  end #FieldSetRender
+end #UI

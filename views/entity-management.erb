@@ -1,0 +1,84 @@
+   
+       <!-- ================ The main view =================== -->
+    
+       <div class="entity-management">
+          <div class="element-block">
+
+            <div class="elements-header">
+              <!-- Title -->
+              <div class="elements-title">              
+              </div>
+              <!-- Search -->
+              <div class="elements-search">
+              </div>
+              <!-- Description -->
+              <div class="elements-description">
+              </div>              
+            </div>
+
+            <!-- Entities list -->
+
+            <div class="elements-container">
+              <!-- Contains the element list -->
+              <div class="elements-list">
+              </div>
+              <div class="bottom-navigation-bar navigation-bar">
+                <div class="navigation-bar-crud-buttons">
+                  <button class="form-button new-entity-button action-button entity-management-button" title="new entity"><%= t.entitymanagement.new %></button>
+                  <button class="form-button reload-entities-button action-button entity-management-button" title="new entity"><%= t.entitymanagement.reload %></button>
+                  <button class="form-button delete-all-entities-button action-button entity-management-button" title="delete all entities" style="display:none"><%= t.entitymanagement.clear %></button>
+                </div>
+                <div class="navigation-bar-nav-buttons">
+                  <span class="elements-summary"></span>
+                  <button class="form-button previous-page-button navigation-button entity-management-button" title="previous page">&lt;</button>
+                  <button class="form-button next-page-button navigation-button entity-management-button" title="next page">&gt;</button>
+                </div>
+              </div>   
+            </div>  
+            
+            <!-- Entity View-->
+            
+            <div class="element-container" style="display:none">
+             <div class="top-navigation-bar navigation-bar">
+                <h2 class="entity-title"></h2>
+                <div class="navigation-bar-search">
+                  <input type="text" name="buscar" id="buscar" class="search fieldcontrol" size="40">
+                  <button class="form-button entity-management-button"><%= t.entitymanagement.search %></button>
+                </div>
+              </div>             
+              <div id="element-detail" class="element-detail">
+              </div>
+              <div class="bottom-navigation-bar navigation-bar">
+                <button class="form-button new-entity-button action-button entity-management-button" title="new entity"><%= t.entitymanagement.new %></button>
+                <button class="form-button edit-entity-button action-button entity-management-button" title="edit"><%= t.entitymanagement.edit %></button>    
+                <button class="form-button delete-entity-button action-button entity-management-button" title="delete"><%= t.entitymanagement.delete %></button>          
+                <button class="form-button page-navigation navigation-button entity-management-button"><%= t.entitymanagement.list %></button>
+                <div class="navigation-bar-nav-buttons">
+                  <span class="elements-summary"></span>
+                  <button class="form-button previous-element-button navigation-button entity-management-button" title="previous entity">&lt;</button>
+                  <button class="form-button next-element-button navigation-button entity-management-button" title="next entity">&gt;</button>
+                </div>
+              </div>            
+            </div>
+
+            <!-- Entity Form -->
+            
+            <div class="element-form-container" style="display:none">            
+              <div id="element-form-detail">
+              </div>
+              <div id="element-form-detail-message">
+              </div>  
+            </div>
+            
+            <!-- The status bar -->
+            
+            <div class="entity-status-bar">
+            </div>  
+            
+          </div>
+        </div>
+
+<!-- Renders the no data message -->        
+<script type="text/tmpl" id="elements_no_data">
+  <p class="no-data-message"><%= t.entitymanagement.no_data %></p>
+</script>        

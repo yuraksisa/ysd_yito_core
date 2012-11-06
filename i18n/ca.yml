@@ -1,0 +1,12 @@
+entitymanagement:
+  no_data: No hi ha dades
+  search: Cercar
+  new: Nou
+  reload: Recarregar
+  list: Llista
+  edit: Edició
+  delete: Esborrar
+  clear: Netejar
+  update: Actualitzar
+  create: Crear 
+  cancel: Cancel.lar    

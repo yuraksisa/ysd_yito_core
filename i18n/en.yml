@@ -1,0 +1,12 @@
+entitymanagement:
+  no_data: There is no data
+  search: Search
+  new: New
+  reload: Refresh
+  list: List
+  edit: Edit
+  delete: Delete
+  clear: Clear  
+  update: Update
+  create: Create
+  cancel: Cancel  

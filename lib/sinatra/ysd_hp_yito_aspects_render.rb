@@ -10,14 +10,14 @@ module Sinatra
     # @param [String] model
     #
     #   The target name of the model
-    #
+    #  
     def render_entity_aspects(model)
 
         context = {:app => self}
         result = {}
         
         if model = (Plugins::ModelAspect.registered_models.select { |m| m.target_model == model }).first
-          aspects_render=UI::EntityManagementAspectRender.new(context, model.aspects) #get_aspects_definition(context))
+          aspects_render=UI::EntityManagementAspectRender.new(context, model.aspects) 
           aspects_render.render(model)
         end            
              

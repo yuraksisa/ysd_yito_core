@@ -15,17 +15,17 @@ module Sinatra
     #
     def load_em_page(template, entity_name, is_child, opts={})
 
-      data = extract_em_request_info(entity_name, is_child)
+      request_data = extract_em_request_info(entity_name, is_child)
 
       locals = opts[:locals] || {}
       
-      locals.merge!(data[:locals]) if data.has_key?(:locals)
-      locals.merge!(data[:info]) if data.has_key?(:info)
+      locals.merge!(request_data[:locals]) if request_data.has_key?(:locals)
+      locals.merge!(request_data[:info]) if request_data.has_key?(:info)
 
       opts.store(:locals, locals)
 
       # layout
-      if data.has_key?(:params) and data[:params].has_key?('layout') and data[:params]['layout'] == 'no'
+      if request_data.has_key?(:params) and request_data[:params].has_key?('layout') and request_data[:params]['layout'] == 'no'
       	opts.store(:layout, false)
       end
 

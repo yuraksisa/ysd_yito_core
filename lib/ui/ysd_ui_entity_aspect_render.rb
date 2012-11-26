@@ -11,17 +11,17 @@ module UI
   #	
   class EntityAspectRender
 
-      attr_reader :context, :aspects
+      attr_reader :context, :entity_aspects
       
       #
       # Constructor
       #
       # @param [Hash] context
-      # @param [Array] the aspects to render
+      # @param [Array of Plugins::AspectConfiguration] the aspects to render
       #
-      def initialize(context, aspects)
+      def initialize(context, entity_aspects)
         @context = context
-        @aspects = aspects
+        @entity_aspects = entity_aspects
       end
 
       #
@@ -50,30 +50,30 @@ module UI
         element_actions = ''
         element_actions_extensions = ''
       
-        aspects.each do |aspect_entity|
+        entity_aspects.each do |aspect_entity_configuration|
 
-          aspect = aspect_entity.get_aspect_definition(context)	
+          aspect_gui = aspect_entity_configuration.get_aspect(context).gui_block	
           
-          if aspect_entity.weight < 0
-            if aspect.respond_to?(:custom)
-              element_custom_above << aspect.custom(context, element, aspect_model).force_encoding('utf-8')
+          if aspect_entity_configuration.weight < 0
+            if aspect_gui.respond_to?(:custom)
+              element_custom_above << aspect_gui.custom(context, element, aspect_model).force_encoding('utf-8')
             end
           else	
-            if aspect.respond_to?(:custom)
-              element_custom << aspect.custom(context, element, aspect_model).force_encoding('utf-8')
+            if aspect_gui.respond_to?(:custom)
+              element_custom << aspect_gui.custom(context, element, aspect_model).force_encoding('utf-8')
             end
           end
 
-          if aspect.respond_to?(:custom_extension)
-            element_custom_extensions << aspect.custom_extension(context, element, aspect_model).force_encoding('utf-8')
+          if aspect_gui.respond_to?(:custom_extension)
+            element_custom_extensions << aspect_gui.custom_extension(context, element, aspect_model).force_encoding('utf-8')
           end
           
-          if aspect.respond_to?(:custom_action)
-            element_actions << aspect.custom_action(context, element, aspect_model).force_encoding('utf-8')
+          if aspect_gui.respond_to?(:custom_action)
+            element_actions << aspect_gui.custom_action(context, element, aspect_model).force_encoding('utf-8')
           end
           
-          if aspect.respond_to?(:custom_action_extension)
-            element_actions_extensions << aspect.custom_action_extension(context, element, aspect_model).force_encoding('utf-8')
+          if aspect_gui.respond_to?(:custom_action_extension)
+            element_actions_extensions << aspect_gui.custom_action_extension(context, element, aspect_model).force_encoding('utf-8')
           end
         
         end

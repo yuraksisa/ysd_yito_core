@@ -9,4 +9,15 @@ entitymanagement:
   clear: Clear  
   update: Update
   create: Create
-  cancel: Cancel  
+  cancel: Cancel
+  back: Back
+aspects:
+  form:
+    aspect_aspect:
+      label: Aspect
+    aspect_weight:
+      label: Weight (management)
+    aspect_render_weight:
+      label: Weight (view)        
+    aspect_config:
+      label: Configure     

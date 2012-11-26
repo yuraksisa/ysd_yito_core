@@ -10,3 +10,14 @@ entitymanagement:
   update: Actualizar
   create: Crear 
   cancel: Cancelar
+  back: Volver
+aspects:
+  form:
+    aspect_aspect:
+      label: Aspecto
+    aspect_weight:
+      label: Peso (gestión)
+    aspect_render_weight:
+      label: Peso (vista)     
+    aspect_config:
+      label: Configurar 

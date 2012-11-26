@@ -27,7 +27,7 @@ module Sinatra
                    File.expand_path(File.join(local_folder, resource_path))
                       
        if File.exists?(file_path)          
-         send_file file_path
+         send_file(file_path)
        else
          pass
        end

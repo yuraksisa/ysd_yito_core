@@ -17,14 +17,20 @@ module UI
   #
   class EntityManagementAspectRender
 
-      attr_reader :context, :aspects
+      attr_reader :context, :entity_aspects
       
       #
       # Constructor
       #
-      def initialize(context, aspects)
+      # @param [Hash] context 
+      #  The context
+      #
+      # @param [Array of Plugins::AspectConfiguration] the aspects to render 
+      #  The aspects to render
+      #
+      def initialize(context, entity_aspects)
         @context = context
-        @aspects = aspects
+        @entity_aspects = entity_aspects
       end     
       
 
@@ -77,119 +83,119 @@ module UI
 
          element_form_extension = ''
                              
-         aspects.each do |aspect_entity|
+         entity_aspects.each do |aspect_entity_configuration|
            
-           aspect = aspect_entity.get_aspect_definition(context)
+           aspect_gui = aspect_entity_configuration.get_aspect(context).gui_block
 
            # VIEW : template
-           if aspect_entity.show_on_view
+           if aspect_entity_configuration.show_on_view
 
-             if aspect_entity.weight < 0
-               if aspect.respond_to?(:element_template_tab) and aspect_entity.in_group
-                 element_template_above_ingroup_tab << aspect.element_template_tab(context, aspect_model).force_encoding('utf-8')
+             if aspect_entity_configuration.weight < 0
+               if aspect_gui.respond_to?(:element_template_tab) and aspect_entity_configuration.in_group
+                 element_template_above_ingroup_tab << aspect_gui.element_template_tab(context, aspect_model).force_encoding('utf-8')
                end
-               if aspect.respond_to?(:element_template)
-                 if aspect_entity.in_group
-                   element_template_above_ingroup << aspect.element_template(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_template)
+                 if aspect_entity_configuration.in_group
+                   element_template_above_ingroup << aspect_gui.element_template(context, aspect_model).force_encoding('utf-8')
                  else
-                   element_template_above << aspect.element_template(context, aspect_model).force_encoding('utf-8')
+                   element_template_above << aspect_gui.element_template(context, aspect_model).force_encoding('utf-8')
                  end
                end                      
              else
-               if aspect.respond_to?(:element_template_tab) and aspect_entity.in_group
-                 element_template_ingroup_tab << aspect.element_template_tab(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_template_tab) and aspect_entity_configuration.in_group
+                 element_template_ingroup_tab << aspect_gui.element_template_tab(context, aspect_model).force_encoding('utf-8')
                end
-               if aspect.respond_to?(:element_template)
-                 if aspect_entity.in_group
-                   element_template_ingroup << aspect.element_template(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_template)
+                 if aspect_entity_configuration.in_group
+                   element_template_ingroup << aspect_gui.element_template(context, aspect_model).force_encoding('utf-8')
                  else
-                   element_template << aspect.element_template(context, aspect_model).force_encoding('utf-8')
+                   element_template << aspect_gui.element_template(context, aspect_model).force_encoding('utf-8')
                  end
                end           
              end
 
-             if aspect.respond_to?(:element_extension)
-               element_extension << aspect.element_extension(context, aspect_model).force_encoding('utf-8')
+             if aspect_gui.respond_to?(:element_extension)
+               element_extension << aspect_gui.element_extension(context, aspect_model).force_encoding('utf-8')
              end           
            
              # VIEW : actions
-             if aspect.respond_to?(:element_action)
-               element_action << aspect.element_action(context, aspect_model).force_encoding('utf-8')
+             if aspect_gui.respond_to?(:element_action)
+               element_action << aspect_gui.element_action(context, aspect_model).force_encoding('utf-8')
              end
 
-             if aspect.respond_to?(:element_action_extension)
-               element_action_extension << aspect.element_action_extension(context, aspect_model).force_encoding('utf-8')
+             if aspect_gui.respond_to?(:element_action_extension)
+               element_action_extension << aspect_gui.element_action_extension(context, aspect_model).force_encoding('utf-8')
              end           
            
            end
 
            # MANAGEMENT            
-           if aspect_entity.show_on_edit
+           if aspect_entity_configuration.show_on_edit
 
-             if aspect_entity.weight < 0
-               if aspect.respond_to?(:element_form_tab) and aspect_entity.in_group
-                 edit_element_form_above_ingroup_tab << aspect.element_form_tab(context, aspect_model).force_encoding('utf-8') 
+             if aspect_entity_configuration.weight < 0
+               if aspect_gui.respond_to?(:element_form_tab) and aspect_entity_configuration.in_group
+                 edit_element_form_above_ingroup_tab << aspect_gui.element_form_tab(context, aspect_model).force_encoding('utf-8') 
                end    
-               if aspect.respond_to?(:element_form)
-                 if aspect_entity.in_group
-                   edit_element_form_above_ingroup << aspect.element_form(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_form)
+                 if aspect_entity_configuration.in_group
+                   edit_element_form_above_ingroup << aspect_gui.element_form(context, aspect_model).force_encoding('utf-8')
                  else
-                   edit_element_form_above << aspect.element_form(context, aspect_model).force_encoding('utf-8')
+                   edit_element_form_above << aspect_gui.element_form(context, aspect_model).force_encoding('utf-8')
                  end
                end           	  
              else     
-               if aspect.respond_to?(:element_form_tab) and aspect_entity.in_group
-                 edit_element_form_ingroup_tab << aspect.element_form_tab(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_form_tab) and aspect_entity_configuration.in_group
+                 edit_element_form_ingroup_tab << aspect_gui.element_form_tab(context, aspect_model).force_encoding('utf-8')
                end                                
-               if aspect.respond_to?(:element_form)
-                 if aspect_entity.in_group
-                   edit_element_form_ingroup << aspect.element_form(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_form)
+                 if aspect_entity_configuration.in_group
+                   edit_element_form_ingroup << aspect_gui.element_form(context, aspect_model).force_encoding('utf-8')
                  else
-                   edit_element_form << aspect.element_form(context, aspect_model).force_encoding('utf-8')
+                   edit_element_form << aspect_gui.element_form(context, aspect_model).force_encoding('utf-8')
                  end
                end
              end
         
-             #if aspect.respond_to?(:element_form_extension)
-             #  edit_element_form_extension << aspect.element_form_extension(context, aspect_model).force_encoding('utf-8')
+             #if aspect_gui.respond_to?(:element_form_extension)
+             #  edit_element_form_extension << aspect_gui.element_form_extension(context, aspect_model).force_encoding('utf-8')
              #end
           
           end      
 
-          if aspect_entity.show_on_new
+          if aspect_entity_configuration.show_on_new
 
-             if aspect_entity.weight < 0
-               if aspect.respond_to?(:element_form_tab) and aspect_entity.in_group
-                 new_element_form_above_ingroup_tab << aspect.element_form_tab(context, aspect_model).force_encoding('utf-8') 
+             if aspect_entity_configuration.weight < 0
+               if aspect_gui.respond_to?(:element_form_tab) and aspect_entity_configuration.in_group
+                 new_element_form_above_ingroup_tab << aspect_gui.element_form_tab(context, aspect_model).force_encoding('utf-8') 
                end    
-               if aspect.respond_to?(:element_form)
-                 if aspect_entity.in_group
-                   new_element_form_above_ingroup << aspect.element_form(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_form)
+                 if aspect_entity_configuration.in_group
+                   new_element_form_above_ingroup << aspect_gui.element_form(context, aspect_model).force_encoding('utf-8')
                  else
-                   new_element_form_above << aspect.element_form(context, aspect_model).force_encoding('utf-8')
+                   new_element_form_above << aspect_gui.element_form(context, aspect_model).force_encoding('utf-8')
                  end
                end              
              else     
-               if aspect.respond_to?(:element_form_tab) and aspect_entity.in_group
-                 new_element_form_ingroup_tab << aspect.element_form_tab(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_form_tab) and aspect_entity_configuration.in_group
+                 new_element_form_ingroup_tab << aspect_gui.element_form_tab(context, aspect_model).force_encoding('utf-8')
                end                                
-               if aspect.respond_to?(:element_form)
-                 if aspect_entity.in_group
-                   new_element_form_ingroup << aspect.element_form(context, aspect_model).force_encoding('utf-8')
+               if aspect_gui.respond_to?(:element_form)
+                 if aspect_entity_configuration.in_group
+                   new_element_form_ingroup << aspect_gui.element_form(context, aspect_model).force_encoding('utf-8')
                  else
-                   new_element_form << aspect.element_form(context, aspect_model).force_encoding('utf-8')
+                   new_element_form << aspect_gui.element_form(context, aspect_model).force_encoding('utf-8')
                  end
                end
              end
         
-             #if aspect.respond_to?(:element_form_extension)
-             #  new_element_form_extension << aspect.element_form_extension(context, aspect_model).force_encoding('utf-8')
+             #if aspect_gui.respond_to?(:element_form_extension)
+             #  new_element_form_extension << aspect_gui.element_form_extension(context, aspect_model).force_encoding('utf-8')
              #end
           
           end 
 
-          if aspect.respond_to?(:element_form_extension)
-            element_form_extension << aspect.element_form_extension(context, aspect_model).force_encoding('utf-8')
+          if aspect_gui.respond_to?(:element_form_extension)
+            element_form_extension << aspect_gui.element_form_extension(context, aspect_model).force_encoding('utf-8')
           end
                                                         
          end

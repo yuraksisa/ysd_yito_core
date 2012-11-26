@@ -24,15 +24,23 @@ module Sinatra
      # 
      def render_element_action_button(options)
       
-        action_button = <<-ACTION_BUTTON
-          <button class="form-button element-action-button action-button entity-management-button" id="#{options[:id]}" title="#{options[:title]}">#{options[:text]}</button>
-        ACTION_BUTTON
-      
+        action_button = []
+        action_button << "<button"
+        action_button << "class=\"form-button element-action-button action-button entity-management-button #{options.fetch(:class,'')}\""
+        action_button << "id=\"#{options[:id]}\""
+        action_button << "title=\"#{options[:title]}\""
+        action_button << "data-action-method=\"#{options[:action_method]}\"" if options.has_key?(:action_method)
+        action_button << "data-action-url=\"#{options[:action_url]}\"" if options.has_key?(:action_url)
+        action_button << "data-confirm-message=\"#{options[:confirm_message]}\"" if options.has_key?(:confirm_message)
+        action_button << ">#{options[:text]}</button>"
+
+        button = action_button.join(" ")
+
         if String.method_defined?(:encode)
-          action_button.encode!('utf-8')
+          button.encode!('utf-8')
         end
         
-        action_button
+        return button
       
      end
      

@@ -9,4 +9,15 @@ entitymanagement:
   clear: Netejar
   update: Actualitzar
   create: Crear 
-  cancel: Cancel.lar    
+  cancel: Cancel.lar
+  back: Tornar    
+aspects:
+  form:
+    aspect_aspect:
+      label: Aspecte
+    aspect_weight:
+      label: Pes (gestió)
+    aspect_render_weight:
+      label: Pes (vista)        
+    aspect_config:
+      label: Configurar  

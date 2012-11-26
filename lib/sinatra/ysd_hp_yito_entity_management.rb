@@ -21,6 +21,7 @@ module Sinatra
       
       locals.merge!(request_data[:locals]) if request_data.has_key?(:locals)
       locals.merge!(request_data[:info]) if request_data.has_key?(:info)
+      locals.merge!(render_entity_aspects(entity_name)) unless entity_name.nil? # Render the entity aspects
 
       opts.store(:locals, locals)
 
@@ -86,13 +87,6 @@ module Sinatra
       #
       if params=extract_request_query_string
         result.merge!(params)
-      end
-
-      #
-      # Get the entity complements
-      #
-      unless entity_name.nil?
-        result.store(:locals, render_entity_aspects(entity_name))
       end
 
       return result

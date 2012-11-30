@@ -110,9 +110,9 @@ module Sinatra
        slider_js = <<-SCRIPT
          <script type="text/javascript">
            require(['jquery', 'jquery.nivo.slider'], function($) {
-             $(window).load(function() {
+//             $(window).load(function() {
                 $("#{selector}").nivoSlider();
-           	});
+//           	});
            });
          </script>
        SCRIPT

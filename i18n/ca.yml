@@ -11,6 +11,7 @@ entitymanagement:
   create: Crear 
   cancel: Cancel.lar
   back: Tornar    
+  close: Tancar
 aspects:
   form:
     aspect_aspect:

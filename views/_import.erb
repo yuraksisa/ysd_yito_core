@@ -1,0 +1,16 @@
+<div id="import_form" class="form-frame" style="display:none">
+  <div class="import_form_toolbar close-bar">
+     <a name="close" class="close"><%=t.entitymanagement.close%></a>
+  </div>		
+  <form name="import" action="<%=action%>" target="import_iframe" method="POST" enctype="multipart/form-data">
+    <div class="formrow">
+       <label for="name"><%=t.import_form.file.label%></label>
+       <input type="file" name="import_file" accept="<%=accept_import_file%>"/>
+    </div> 
+    <div class="formrow-botonera">
+       <input type="submit" class="action-button" value="<%=t.import_form.import.label%>"/>
+    </div>
+  </form>
+  <iframe id="import_iframe" name="import_iframe" style="display:none">
+  </iframe>
+</div>

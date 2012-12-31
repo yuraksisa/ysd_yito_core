@@ -30,7 +30,7 @@ module UI
       #
       def initialize(context, entity_aspects)
         @context = context
-        @entity_aspects = entity_aspects
+        @entity_aspects = entity_aspects.sort { |x, y| x.weight <=> y.weight }
       end     
       
 
@@ -87,49 +87,6 @@ module UI
            
            aspect_gui = aspect_entity_configuration.get_aspect(context).gui_block
 
-           # VIEW : template
-           if aspect_entity_configuration.show_on_view
-
-             if aspect_entity_configuration.weight < 0
-               if aspect_gui.respond_to?(:element_template_tab) and aspect_entity_configuration.in_group
-                 element_template_above_ingroup_tab << aspect_gui.element_template_tab(context, aspect_model).force_encoding('utf-8')
-               end
-               if aspect_gui.respond_to?(:element_template)
-                 if aspect_entity_configuration.in_group
-                   element_template_above_ingroup << aspect_gui.element_template(context, aspect_model).force_encoding('utf-8')
-                 else
-                   element_template_above << aspect_gui.element_template(context, aspect_model).force_encoding('utf-8')
-                 end
-               end                      
-             else
-               if aspect_gui.respond_to?(:element_template_tab) and aspect_entity_configuration.in_group
-                 element_template_ingroup_tab << aspect_gui.element_template_tab(context, aspect_model).force_encoding('utf-8')
-               end
-               if aspect_gui.respond_to?(:element_template)
-                 if aspect_entity_configuration.in_group
-                   element_template_ingroup << aspect_gui.element_template(context, aspect_model).force_encoding('utf-8')
-                 else
-                   element_template << aspect_gui.element_template(context, aspect_model).force_encoding('utf-8')
-                 end
-               end           
-             end
-
-             if aspect_gui.respond_to?(:element_extension)
-               element_extension << aspect_gui.element_extension(context, aspect_model).force_encoding('utf-8')
-             end           
-           
-             # VIEW : actions
-             if aspect_gui.respond_to?(:element_action)
-               element_action << aspect_gui.element_action(context, aspect_model).force_encoding('utf-8')
-             end
-
-             if aspect_gui.respond_to?(:element_action_extension)
-               element_action_extension << aspect_gui.element_action_extension(context, aspect_model).force_encoding('utf-8')
-             end           
-           
-           end
-
-           # MANAGEMENT            
            if aspect_entity_configuration.show_on_edit
 
              if aspect_entity_configuration.weight < 0
@@ -197,6 +154,14 @@ module UI
           if aspect_gui.respond_to?(:element_form_extension)
             element_form_extension << aspect_gui.element_form_extension(context, aspect_model).force_encoding('utf-8')
           end
+
+          if aspect_gui.respond_to?(:element_action)
+            element_action << aspect_gui.element_action(context, aspect_model).force_encoding('utf-8')
+          end
+
+          if aspect_gui.respond_to?(:element_action_extension)
+            element_action_extension << aspect_gui.element_action_extension(context, aspect_model).force_encoding('utf-8')
+          end      
                                                         
          end
 

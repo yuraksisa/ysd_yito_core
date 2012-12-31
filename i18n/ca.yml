@@ -3,7 +3,7 @@ entitymanagement:
   search: Cercar
   new: Nou
   reload: Recarregar
-  list: Llista
+  list: Tornar a la llista
   edit: Edició
   delete: Esborrar
   clear: Netejar
@@ -12,6 +12,16 @@ entitymanagement:
   cancel: Cancel.lar
   back: Tornar    
   close: Tancar
+import_form:
+  file:
+    label: Fitxer
+  import:
+    label: Importar 
+clone_form:
+  new_name:
+    label: Nou nom
+  clone:
+    label: Clonar
 aspects:
   form:
     aspect_aspect:

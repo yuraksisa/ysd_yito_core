@@ -3,7 +3,7 @@ entitymanagement:
   search: Buscar
   new: Nuevo
   reload: Recargar
-  list: Lista
+  list: Volver a la lista
   edit: Editar
   delete: Borrar
   clear: Limpiar
@@ -12,6 +12,16 @@ entitymanagement:
   cancel: Cancelar
   back: Volver
   close: Cerrar
+import_form:
+  file:
+    label: Fichero
+  import:
+    label: Importar 
+clone_form:
+  new_name:
+    label: Nuevo nombre
+  clone:
+    label: Clonar
 aspects:
   form:
     aspect_aspect:

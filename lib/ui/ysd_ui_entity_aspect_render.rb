@@ -21,7 +21,7 @@ module UI
       #
       def initialize(context, entity_aspects)
         @context = context
-        @entity_aspects = entity_aspects
+        @entity_aspects = entity_aspects.sort { |x, y| x.render_weight <=> y.render_weight }
       end
 
       #
@@ -54,7 +54,7 @@ module UI
 
           aspect_gui = aspect_entity_configuration.get_aspect(context).gui_block	
           
-          if aspect_entity_configuration.weight < 0
+          if aspect_entity_configuration.render_weight < 0
             if aspect_gui.respond_to?(:custom)
               element_custom_above << aspect_gui.custom(context, element, aspect_model).force_encoding('utf-8')
             end

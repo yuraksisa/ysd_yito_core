@@ -1,0 +1,129 @@
+<script type="text/javascript">
+
+  define('YSDImportForm', ['jquery','YSDGui'], function($, YSDGui){
+
+     Import = function() {
+       this.model = new ImportModel();
+       this.controller = new ImportController();
+       this.view = new ImportView(this.model, this.controller);
+       this.model.setView(this.view);
+       this.view.init();
+     }
+
+     ImportModel = function() {
+        
+        this.state = 'initial';
+        this.view = null;
+
+        this.setView = function(view) {
+        	this.view = view;
+        }
+
+        this.changeState = function(action) {
+
+          switch(action) {
+          	 case 'starting_import':
+          	    this.state = 'sending_file';
+          	    break;
+          	 case 'import_done_ok':
+          	    this.state = 'import_finished';
+          	    break;
+          	 case 'import_done_error':
+          	    this.state = 'import_error';
+          	    break;
+          }
+
+          this.view.stateChanged(this.state);
+
+
+        }
+     
+     }
+
+     ImportController = function() {
+
+        this.buttonShowImportFrameClick = function() { /* The user clicks the import button */
+          YSDGui.showElement(document.getElementById('import_form'));
+        }
+
+        this.closeClick = function() {
+          YSDGui.hideElement(document.getElementById('import_form'));	
+        }
+
+     }
+
+     ImportView = function(model, controller) {
+        
+        this.model = model;
+        this.controller = controller;
+        
+        this.init = function() {
+          
+          var self = this;
+        
+          $('#import_button').bind('click', function() {
+            self.controller.buttonShowImportFrameClick();
+          });
+
+          $('#import_form').bind('submit', function() {
+            self.model.changeState('starting_import');
+          });
+
+          $('.import_form_toolbar .close').bind('click', function(){
+            self.controller.closeClick();
+          });
+
+          $('#import_iframe').bind('load',
+                   function(event) {
+                   	 try 
+                   	 {                      
+                       if (uploaderModel.state == 'sending_file') { // Manages the event only when uploading the file
+                   	     self.model.changeState('import_done_ok');
+                       }                  	     
+                   	 }
+                   	 catch (e)
+                   	 { 
+                   	 	self.model.changeState('import_done_error');
+                   	 }
+                   }); 
+        }
+
+
+        this.stateChanged = function(state) {
+
+           switch (state) {
+
+              case 'import_finished':
+                this.controller.closeClick();
+                break;
+
+              case 'import_error':
+                this.notifyUser('Error', 'Se ha producido un error en la importación'); 
+                break;
+
+           }
+
+
+        }
+
+    
+  	    this.notifyUser = function(title, message) { /* Notifies a POPUP message to the user */
+  		
+          $("<div title='" + title + "'>" + message + "</div>").dialog( { height: 250, modal: true,     	 
+       	        buttons: {
+       	            Ok: function() 
+       	            {
+				   	  $( this ).dialog( "close" );
+				    }
+				}
+           	  });   	 	
+  		
+  	    }   
+
+     }
+
+     return Import;
+
+  });
+
+</script>

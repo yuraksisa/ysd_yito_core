@@ -19,14 +19,11 @@
             <!-- Entities list -->
 
             <div class="elements-container">
-              <!-- Contains the element list -->
-              <div class="elements-list">
-              </div>
-              <div class="bottom-navigation-bar navigation-bar" style="display: none">
+              <div class="top-navigation-bar navigation-bar" style="display:none">
                 <div class="navigation-bar-crud-buttons">
-                  <button class="form-button new-entity-button action-button entity-management-button" title="new entity"><%= t.entitymanagement.new %></button>
-                  <button class="form-button reload-entities-button action-button entity-management-button" title="new entity"><%= t.entitymanagement.reload %></button>
-                  <button class="form-button delete-all-entities-button action-button entity-management-button" title="delete all entities" style="display:none"><%= t.entitymanagement.clear %></button>
+                  <button class="form-button new-entity-button action-button entity-management-button" title="new"><%= t.entitymanagement.new %></button>
+                  <button class="form-button reload-entities-button action-button entity-management-button" title="reload">&nbsp;</button>
+                  <button class="form-button delete-all-entities-button action-button entity-management-button" title="clear" style="display:none"><%= t.entitymanagement.clear %></button>
                 </div>
                 <div class="navigation-bar-nav-buttons">
                   <span class="elements-summary"></span>
@@ -34,18 +31,26 @@
                   <button class="form-button next-page-button navigation-button entity-management-button" title="next page">&gt;</button>
                 </div>
               </div>   
+              <!-- Contains the element list -->
+              <div class="elements-list">
+              </div>
+              <div class="bottom-navigation-bar navigation-bar" style="display: none">
+              </div>   
             </div>  
             
             <!-- Entity View-->
             
             <div class="element-container" style="display:none">        
+              <div class="top-navigation-bar navigation-bar" style="display:none">
+                <button class="form-button page-navigation navigation-button entity-management-button" style="border: none;
+background: none; text-decoration: underline;" title="list"><%= t.entitymanagement.list %></button>
+              </div>
               <div id="element-detail" class="element-detail">
               </div>
               <div class="bottom-navigation-bar navigation-bar" style="display: none">
                 <button class="form-button new-entity-button action-button entity-management-button" title="new entity"><%= t.entitymanagement.new %></button>
                 <button class="form-button edit-entity-button action-button entity-management-button" title="edit"><%= t.entitymanagement.edit %></button>    
-                <button class="form-button delete-entity-button action-button entity-management-button" title="delete"><%= t.entitymanagement.delete %></button>          
-                <button class="form-button page-navigation navigation-button entity-management-button"><%= t.entitymanagement.list %></button>
+                <button class="form-button delete-entity-button action-button entity-management-button" title="delete"><%= t.entitymanagement.delete %></button>       
                 <div class="navigation-bar-nav-buttons">
                   <span class="elements-summary"></span>
                   <button class="form-button previous-element-button navigation-button entity-management-button" title="previous entity">&lt;</button>
@@ -57,10 +62,19 @@
             <!-- Entity Form -->
             
             <div class="element-form-container" style="display:none">            
-              <div id="element-form-detail">
+              <div class="top-navigation-bar navigation-bar">
+                <button class="form-button page-navigation navigation-button entity-management-button" style="border: none;
+background: none; text-decoration: underline;" title="list"><%= t.entitymanagement.list %></button>
+                <div class="navigation-bar-nav-buttons">
+                   <span class="elements-summary"></span>
+                   <button class="form-button previous-element-button navigation-button entity-management-button" title="previous entity">&lt;</button>
+                   <button class="form-button next-element-button navigation-button entity-management-button" title="next entity">&gt;</button>
+                </div>                
+              </div>
+              <div id="element-form-detail" class="element-form-detail">
               </div>
               <div id="element-form-detail-message">
-              </div>  
+              </div>              
             </div>
             
             <!-- The status bar -->
@@ -75,3 +89,4 @@
 <script type="text/tmpl" id="elements_no_data">
   <p class="no-data-message"><%= t.entitymanagement.no_data %></p>
 </script>        
+

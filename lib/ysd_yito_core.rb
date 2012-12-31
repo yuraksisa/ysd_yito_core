@@ -16,4 +16,6 @@ require 'sinatra/ysd_hp_yito_page'
 require 'sinatra/ysd_hp_yito_resources'
 require 'sinatra/ysd_sinatra_yito_core'
 
+require 'ysd_yito_core_extension'
+
 require 'ysd_yito_core_init'

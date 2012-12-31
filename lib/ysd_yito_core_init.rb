@@ -6,6 +6,7 @@ Plugins::SinatraAppPlugin.register :yito_core do
    author=      'yurak sisa'
    description= 'yito base'
    version=     '0.1'
+   hooker Huasi::YitoCoreExtension
    sinatra_extension Sinatra::YSD::YitoCore
    sinatra_helper Sinatra::YitoPageBuilderHelper
    sinatra_helper Sinatra::YitoUIHelper

@@ -1,0 +1,14 @@
+<div class="clone_form form-frame">
+  <div class="clone_form_toolbar close-bar">
+     <a name="close" class="close"><%=t.entitymanagement.close%></a>
+  </div>	
+  <form name="clone" action="<%=action%>">
+    <div class="formrow">
+       <label for="name"><%=t.clone_form.new_name.label%></label>
+       <input type="text" maxlength="<%=max_length%>" name="name"/>
+    </div> 
+    <div class="formrow-botonera">
+       <input type="submit" class="action-button" value="<%t.clone_form.clone.label%>"/>
+    </div>
+  </form>
+</div>

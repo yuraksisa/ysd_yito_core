@@ -76,6 +76,8 @@ module UI
                  'page_render'
                end
       
+      locals.merge!(page_configuration)
+
       page.styles    ||= ''
       page.scripts   ||= ''
       page.variables ||= {}
@@ -93,6 +95,20 @@ module UI
     
     private
     
+    #
+    # Get the page configuration
+    #
+    def page_configuration
+
+      page_locals = {}
+      page_locals.store(:site_title, SystemConfiguration::Variable.get_value('site.title'))
+      page_locals.store(:site_slogan, SystemConfiguration::Variable.get_value('site.slogan'))
+      page_locals.store(:site_logo, SystemConfiguration::Variable.get_value('site.logo'))
+
+      return page_locals
+
+    end
+
     #
     # Get the styles
     #

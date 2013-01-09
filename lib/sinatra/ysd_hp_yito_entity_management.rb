@@ -21,7 +21,17 @@ module Sinatra
       
       locals.merge!(request_data[:locals]) if request_data.has_key?(:locals)
       locals.merge!(request_data[:info]) if request_data.has_key?(:info)
-      locals.merge!(render_entity_management_aspects(entity_name)) unless entity_name.nil? # Render the entity aspects
+
+      unless entity_name.nil? 
+        entity_aspects = render_entity_management_aspects(entity_name)
+        entity_aspects.each do |key, value| 
+          if locals.has_key?(key) 
+            locals[key] << value
+          else
+            locals[key] = value
+          end
+        end
+      end
 
       opts.store(:locals, locals)
 

@@ -1,0 +1,25 @@
+          <%% if (entity) { %>     
+            <div id="form_below">
+              <%= edit_element_form %>
+            </div>
+            <a id="show_tabs" href="#" style="display:none">
+              <%= t.content_management.form.show_tabs %>
+            </a>
+            <div id="tabs" style="display:none">
+              <ul>
+                <%= edit_element_form_ingroup_tab %>
+              </ul>
+              <%= edit_element_form_ingroup %>
+            </div>          
+          <%% } else { %>
+            <div id="form_below">
+              <%= new_element_form %>
+            </div>
+            <a id="show_tabs" href="#" style="display:none"><%= t.content_management.form.show_tabs %></a>
+            <div id="tabs" style="display:none">
+              <ul>
+                <%= new_element_form_ingroup_tab %>
+              </ul>
+              <%= new_element_form_ingroup %>
+            </div>  
+          <%% } %> 

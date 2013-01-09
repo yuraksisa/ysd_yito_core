@@ -11,7 +11,8 @@ entitymanagement:
   create: Create
   cancel: Cancel
   back: Back
-  close: Close  
+  close: Close
+  complements: More  
 import_form:
   file:
     label: File

@@ -171,8 +171,14 @@ module UI
          element_template.force_encoding('utf-8')
          element_template_ingroup_tab.force_encoding('utf-8')
          element_template_ingroup.force_encoding('utf-8')
+         element_extension.force_encoding('utf-8')
          
          element_action.force_encoding('utf-8')
+         unless element_action.empty?
+           element_action = build_action_menu(element_action)
+         end
+
+         element_action_extension.force_encoding('utf-8')
 
          edit_element_form_above.force_encoding('utf-8')
          edit_element_form_above_ingroup_tab.force_encoding('utf-8')
@@ -181,7 +187,6 @@ module UI
          edit_element_form_ingroup_tab.force_encoding('utf-8')
          edit_element_form_ingroup.force_encoding('utf-8')
          edit_element_form_extension.force_encoding('utf-8')
-
          new_element_form_above.force_encoding('utf-8')
          new_element_form_above_ingroup_tab.force_encoding('utf-8')
          new_element_form_above_ingroup.force_encoding('utf-8')
@@ -189,12 +194,8 @@ module UI
          new_element_form_ingroup_tab.force_encoding('utf-8')
          new_element_form_ingroup.force_encoding('utf-8')
          new_element_form_extension.force_encoding('utf-8')
-         
          element_form_extension.force_encoding('utf-8')
-
-         element_extension.force_encoding('utf-8')
-         element_action_extension.force_encoding('utf-8')
-      
+               
          result = {:element_template_above => element_template_above,
                    :element_template_above_ingroup_tab => element_template_above_ingroup_tab,
          	         :element_template_above_ingroup => element_template_above_ingroup,
@@ -227,6 +228,37 @@ module UI
            
          return result
           
+      end
+
+      private
+
+      #
+      # Build the element action menu from the options
+      #
+      def build_action_menu(element_action)
+
+        app = context[:app]
+
+        menu = []
+        menu << "<ul"
+        menu << "class=\"menu element_action_menu\">"
+        menu << "<li class=\"menuitem\">"
+        menu << "<a><img style=\"width:16px;padding-right: 4px;vertical-align: middle;position: relative;top: -2px;\" src=\"/assets/img/icomoon/
+cog.png\">#{app.t.entitymanagement.complements}</a>"
+        menu << "<ul class=\"submenu submenu-level1 element_action_submenu\">"
+        menu << element_action
+        menu << "</ul>"
+        menu << "</li>"
+        menu << "</ul>"
+        
+        menu = menu.join(" ")
+
+        if String.method_defined?(:encode)
+          menu.encode!('utf-8')
+        end
+
+        return menu
+
       end
 
   end

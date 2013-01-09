@@ -12,6 +12,7 @@ entitymanagement:
   cancel: Cancel.lar
   back: Tornar    
   close: Tancar
+  complements: Més
 import_form:
   file:
     label: Fitxer

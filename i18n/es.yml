@@ -12,6 +12,7 @@ entitymanagement:
   cancel: Cancelar
   back: Volver
   close: Cerrar
+  complements: Más
 import_form:
   file:
     label: Fichero

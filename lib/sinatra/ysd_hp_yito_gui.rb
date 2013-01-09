@@ -12,6 +12,34 @@ module Sinatra
          <li><a href="##{id}">#{description}</a></li>
        TAB
      end
+     
+     #
+     # Renders an action menu item
+     #
+     # @params [Hash] options
+     # 
+     #  :text The anchor text
+     #  :id   The list item id
+     #
+     def render_element_action_menuitem(options)
+
+       menu_item = []
+       menu_item << "<li"
+       menu_item << "id=\"#{options[:id]}\""
+       menu_item << "class=\"menuitem element_action_submenu\""
+       menu_item << ">"
+       menu_item << "<a>#{options[:text]}</a>"
+       menu_item << "</li>"
+
+       menu_item = menu_item.join(" ")
+
+       if String.method_defined?(:encode)
+         menu_item.encode!('utf-8')
+       end
+
+       return menu_item
+
+     end
 
      #
      # Renders an action button 

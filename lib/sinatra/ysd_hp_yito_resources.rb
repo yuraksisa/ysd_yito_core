@@ -51,10 +51,10 @@ module Sinatra
     #
     # TODO Use the default_template to load the file 
     #
-    def include(resource_name)
+    def include(resource_name, options={})
     
       if path=get_path(resource_name)
-        erb File.read(path), :layout => false    
+        erb File.read(path), {:layout => false, :locals => options}    
       end
       
     end    

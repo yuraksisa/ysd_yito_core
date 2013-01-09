@@ -5,9 +5,19 @@
           <div class="element-block">
 
             <div class="elements-header">
+              <% if defined?(element_action) and not element_action.empty? %>
+                <div class="element_actions" style="display:none">
+                   <%= element_action %>
+                </div>
+              <% end %>
+              <% if defined?(elements_actions) and not elements_actions.empty? %>
+                <div class="elements_actions" style="display:none">
+                   <%= elements_actions %>
+                </div>    
+              <% end %>  
               <!-- Title -->
               <div class="elements-title">              
-              </div>
+              </div>             
               <!-- Description -->
               <div class="elements-description">
               </div>              
@@ -61,10 +71,14 @@ background: none; text-decoration: underline;" title="list"><%= t.entitymanageme
 
             <!-- Entity Form -->
             
-            <div class="element-form-container" style="display:none">            
+            <div class="element-form-container" style="display:none">
+              <div class="back-bar" style="display:none">
+                 <a id="back" class="back"><%=t.entitymanagement.back%></a>
+              </div>
               <div class="top-navigation-bar navigation-bar">
                 <button class="form-button page-navigation navigation-button entity-management-button" style="border: none;
 background: none; text-decoration: underline;" title="list"><%= t.entitymanagement.list %></button>
+                <button class="form-button delete-entity-button action-button entity-management-button" title="delete">&nbsp;</button>
                 <div class="navigation-bar-nav-buttons">
                    <span class="elements-summary"></span>
                    <button class="form-button previous-element-button navigation-button entity-management-button" title="previous entity">&lt;</button>

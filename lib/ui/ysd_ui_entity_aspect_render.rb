@@ -46,6 +46,7 @@ module UI
         
         element_custom_above = ''
         element_custom = ''
+        element_custom_nogroup = ''
         element_custom_extensions = ''
         element_actions = ''
         element_actions_extensions = ''
@@ -60,7 +61,11 @@ module UI
             end
           else	
             if aspect_gui.respond_to?(:custom)
-              element_custom << aspect_gui.custom(context, element, aspect_model).force_encoding('utf-8')
+              if aspect_entity_configuration.render_in_group
+                element_custom << aspect_gui.custom(context, element, aspect_model).force_encoding('utf-8')
+              else
+                element_custom_nogroup << aspect_gui.custom(context, element, aspect_model).force_encoding('utf-8')
+              end
             end
           end
 
@@ -80,6 +85,7 @@ module UI
        
         element_custom_above.force_encoding('utf-8')
         element_custom.force_encoding('utf-8')
+        element_custom_nogroup.force_encoding('utf-8')
         element_custom_extensions.force_encoding('utf-8')
         element_actions.force_encoding('utf-8')
         element_actions_extensions.force_encoding('utf-8')
@@ -88,6 +94,7 @@ module UI
          :element_actions_extensions => element_actions_extensions,
          :element_custom_above => element_custom_above,
          :element_custom => element_custom,
+         :element_custom_nogroup => element_custom_nogroup,
          :element_custom_extensions => element_custom_extensions}     
       
       end

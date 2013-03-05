@@ -1,12 +1,12 @@
 require 'ui/ysd_ui_page_builder'
-require 'ysd_md_cms' unless defined?ContentManagerSystem::Content
+require 'yaml'
 
 module Sinatra
   #
   # Sinatra Helper functions to include page generation methods
   #
   module YitoPageBuilderHelper
-      
+
     # Renders a content getting a web page
     #
     # @param [UI::Page] page
@@ -57,27 +57,28 @@ module Sinatra
         resource_name = resource_name.to_s if resource_name.is_a?(Symbol)
               
         if path=get_path(resource_name) # Search the resource in the views path            
-
-          content = ContentManagerSystem::Content.new_from_file(path)
           
-          template_engine = if content.respond_to?(:template_engine)
-                              content.template_engine 
+          page_data = parse_page_file(path).symbolize_keys
+
+          template_engine = if page_data.has_key?(:template_engine)
+                              page_data[:template_engine] 
                             else
                               SystemConfiguration::Variable.get_value('site_template_engine') || 'erb'
                             end
           
-          page_template = Tilt[template_engine].new { content.body }
+          page_template = Tilt[template_engine].new { page_data[:body] }
           page_body  = page_template.render(self, options[:locals])     
+          
           if String.method_defined?(:force_encoding)
             page_body.force_encoding('utf-8')
           end          
 
-          the_page = UI::Page.new(:title => content.title, 
-                                  :author => content.author, 
-                                  :keywords => content.keywords, 
-                                  :language => content.language, 
-                                  :description => content.description, 
-                                  :summary => content.summary,
+          the_page = UI::Page.new(:title => page_data[:title], 
+                                  :author => page_data[:author], 
+                                  :keywords => page_data[:keywords], 
+                                  :language => page_data[:language], 
+                                  :description => page_data[:description], 
+                                  :summary => page_data[:summary],
                                   :content => page_body )
 
           page(the_page, options)
@@ -116,6 +117,50 @@ module Sinatra
       return result
 
     end
+
+    private
+
+    # Parse a file and gets the metadata hold
+    # 
+    # @param [String] file_path
+    #   The file to process
+    #
+    # @return [Hash]
+    #   A hash with the metadata
+    #  
+    def parse_page_file(file_path)
+  
+         result = {}
+         metadata = []
+         remaining = ''
+  
+         File.open(file_path) do |file|
+        
+           while (not file.eof?)
+              line = file.readline            
+              if match = line.match(/\w*:\s[\w|\s]*/)
+                 metadata.push(line)
+              else
+                 remaining << line if not line.match(/^\n|\n\r$/)
+                 break
+              end
+           end 
+         
+           remaining << file.read # Reads the rest of the document
+
+           result = {}
+           
+           if metadata and metadata.length > 0 
+            result = YAML::load(metadata.join)
+           end
+           
+           result.store(:body, remaining) if remaining
+    
+         end 
+ 
+         return result  
+  
+    end     
 
   end #PageBuilderHelper
 end #Sinatra 

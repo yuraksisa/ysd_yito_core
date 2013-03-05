@@ -30,8 +30,6 @@ module UI
       template_name = template_name.join
             
       template_path = find_template(template_name) 
-      
-      puts "template_path : #{template_path}"
            
       template = Tilt.new(template_path)
       the_render = template.render(@app, options)                                  

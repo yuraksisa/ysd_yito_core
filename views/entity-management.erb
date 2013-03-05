@@ -72,9 +72,6 @@ background: none; text-decoration: underline;" title="list"><%= t.entitymanageme
             <!-- Entity Form -->
             
             <div class="element-form-container" style="display:none">
-              <div class="back-bar" style="display:none">
-                 <a id="back" class="back"><%=t.entitymanagement.back%></a>
-              </div>
               <div class="top-navigation-bar navigation-bar">
                 <button class="form-button page-navigation navigation-button entity-management-button" style="border: none;
 background: none; text-decoration: underline;" title="list"><%= t.entitymanagement.list %></button>
@@ -88,7 +85,12 @@ background: none; text-decoration: underline;" title="list"><%= t.entitymanageme
               <div id="element-form-detail" class="element-form-detail">
               </div>
               <div id="element-form-detail-message">
-              </div>              
+              </div>
+              <div id="element-form-bottom">
+                <div class="back-bar" style="display:none">
+                   <a id="back" class="back"><%=t.entitymanagement.back%></a>
+                </div>
+              <div>                            
             </div>
             
             <!-- The status bar -->

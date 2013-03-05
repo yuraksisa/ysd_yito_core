@@ -114,9 +114,9 @@ module UI
     #
     def get_styles(context)
       
-      styles = []
-      styles.concat(Plugins::Plugin.plugin_invoke_all('page_style', context))      
-      styles.concat(Themes::ThemeManager.instance.selected_theme.styles) 
+      styles = []    
+      styles.concat(Plugins::Plugin.plugin_invoke_all('page_style', context))
+      styles.concat(Themes::ThemeManager.instance.selected_theme.styles)   
       styles.uniq!
       
       page_css = styles.map do |style_url|

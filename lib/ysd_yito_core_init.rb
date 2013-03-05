@@ -13,6 +13,7 @@ Plugins::SinatraAppPlugin.register :yito_core do
    sinatra_helper Sinatra::YitoEntityManagementHelper
    sinatra_helper Sinatra::YitoAspectsRenderHelper
    sinatra_helper Sinatra::YitoResourcesLoaderHelper
+   sinatra_helper Sinatra::YitoJsonRequestExtractor
    
 end
 

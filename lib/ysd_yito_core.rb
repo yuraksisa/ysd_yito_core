@@ -7,8 +7,6 @@ require 'ui/ysd_ui_page_component'
 require 'ui/ysd_ui_page_builder'
 require 'ui/ysd_ui_guiblock_entity_aspect_adapter'
 
-require 'guiblocks/ysd_guiblock_aspects'
-
 require 'sinatra/ysd_hp_yito_aspects_render'
 require 'sinatra/ysd_hp_yito_entity_management'
 require 'sinatra/ysd_hp_yito_gui'

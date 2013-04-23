@@ -1,5 +1,6 @@
 require 'json'
 require 'uri'
+require 'ysd_md_yito'
 
 module Sinatra
   module YitoJsonRequestExtractor

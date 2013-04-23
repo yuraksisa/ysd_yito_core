@@ -84,12 +84,12 @@ module Sinatra
           page(the_page, options)
             
         else
-          #puts "Resource Not Found. Path= #{request.path_info} Resource name= #{resource_name}"
+          puts "Resource Not Found. Path= #{request.path_info} Resource name= #{resource_name}"
           status 404
         end
         
       rescue Errno::ENOENT => error
-          #puts "Resource Not Found. Path= #{request.path_info} Resource name= #{resource_name} Error= #{error}"
+          puts "Resource Not Found. Path= #{request.path_info} Resource name= #{resource_name} Error= #{error}"
           status 404
       end  
     

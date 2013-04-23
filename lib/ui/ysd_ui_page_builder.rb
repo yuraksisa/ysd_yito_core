@@ -87,10 +87,12 @@ module UI
       page.variables.merge!(pre_processors(context))
 
       # Renders the page
-      page_template_path = find_template(context, layout)
-      page_template = Tilt.new(page_template_path) 
-      page_render = page_template.render(app, locals.merge({:page => page}))          
-                 
+      if page_template_path = find_template(context, layout)
+        page_template = Tilt.new(page_template_path) 
+        page_render = page_template.render(app, locals.merge({:page => page}))          
+      else
+        page.content
+      end           
     end
     
     private
@@ -199,8 +201,7 @@ module UI
        page_template_path = Themes::ThemeManager.instance.selected_theme.resource_path("#{layout}.erb",'template') 
          
        # Search in the project
-       if not page_template_path
-         path = app.get_path(layout)                                 
+       if not page_template_path and path = app.get_path(layout) 
          page_template_path = path if File.exist?(path)
        end
          

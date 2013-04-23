@@ -140,7 +140,7 @@ module Sinatra
       views_list = Array(views).clone
       views_list << File.join(Themes::ThemeManager.instance.selected_theme.root_path, 'template')
       
-      #puts "TF : searching #{name} - #{File.join(session[:locale],name.to_s)}"
+      #puts "TF : searching #{name}"
       
       # Try to search the template in locale
       if (session[:locale])

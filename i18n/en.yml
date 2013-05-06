@@ -1,3 +1,5 @@
+system_admin_menu:
+  apps_menu: Applications
 entitymanagement:
   no_data: There is no data
   search: Search

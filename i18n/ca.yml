@@ -1,3 +1,5 @@
+system_admin_menu:
+  apps_menu: Aplicacions   
 entitymanagement:
   no_data: No hi ha dades
   search: Cercar

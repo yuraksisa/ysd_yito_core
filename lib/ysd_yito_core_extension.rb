@@ -27,8 +27,30 @@ module Huasi
         SystemConfiguration::Variable.first_or_create({:name => 'site.template_engine'},
                                                        {:value => 'erb', :description => 'default engine', :module => :yito_core})   
 
-
-
     end
+
+
+    # --------- Menus --------------------
+
+    #
+    # It defines the apps menu 
+    #
+    # @return [Array]
+    #  Menu definition
+    #
+    def menu(context={})
+      
+      app = context[:app]
+      
+      menu_items = [{:path => '/apps',
+                     :options => {
+                        :title => app.t.system_admin_menu.apps_menu,
+                        :description => 'Apps',
+                        :module => :yito,
+                        :weight => 0}
+                     }]
+                    
+    end
+
   end
 end

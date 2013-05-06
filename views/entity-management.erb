@@ -21,15 +21,6 @@
               <!-- Description -->
               <div class="elements-description">
               </div>              
-              <!-- Search -->
-              <div class="elements-search" style="display:none">
-                <form>
-                  <div class="form-row">
-                    <input type="text" name="search" class="search-entity-input" maxlength="60"/>
-                    <input type="button" class="search-entity-button" value="<%=t.entitymanagement.search%>"/>
-                  </div>
-                </form>
-              </div>
             </div>
 
             <!-- Entities list -->
@@ -41,11 +32,20 @@
                   <button class="form-button reload-entities-button action-button entity-management-button" title="reload">&nbsp;</button>
                   <button class="form-button delete-all-entities-button action-button entity-management-button" title="clear" style="display:none"><%= t.entitymanagement.clear %></button>
                 </div>
+                <!-- Search -->
+                <div class="elements-search" style="display:none">
+                  <form>
+                    <div class="form-row">
+                      <input type="text" name="search" class="search-entity-input" maxlength="60"/>
+                      <input type="button" class="search-entity-button" value="<%=t.entitymanagement.search%>"/>
+                    </div>
+                  </form>
+                </div>     
                 <div class="navigation-bar-nav-buttons">
-                  <span class="elements-summary"></span>
+                  <span class="elements-summary smaller_text"></span>
                   <button class="form-button previous-page-button navigation-button entity-management-button" title="previous page">&lt;</button>
                   <button class="form-button next-page-button navigation-button entity-management-button" title="next page">&gt;</button>
-                </div>
+                </div>                           
               </div>   
               <!-- Contains the element list -->
               <div class="elements-list">
@@ -96,7 +96,7 @@ background: none; text-decoration: underline;" title="list"><%= t.entitymanageme
                 <div class="back-bar" style="display:none">
                    <a id="back" class="back"><%=t.entitymanagement.back%></a>
                 </div>
-              <div>                            
+              </div>                            
             </div>
             
             <!-- The status bar -->

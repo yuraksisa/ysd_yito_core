@@ -27,6 +27,10 @@ module Huasi
         SystemConfiguration::Variable.first_or_create({:name => 'site.template_engine'},
                                                        {:value => 'erb', :description => 'default engine', :module => :yito_core})   
 
+        SystemConfiguration::Variable.first_or_create({:name => 'site.domain'},
+                                                       {:value => '', :description => 'site domain', :module => :cms})   
+
+
     end
 
 

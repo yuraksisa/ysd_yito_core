@@ -139,7 +139,10 @@ module Sinatra
          <script type="text/javascript">
            require(['jquery', 'jquery.nivo.slider'], function($) {
 //             $(window).load(function() {
-                $("#{selector}").nivoSlider();
+                $("#{selector}").nivoSlider({
+                  animspeed: 2000,
+                  pauseTime: 10000
+                  });
 //           	});
            });
          </script>

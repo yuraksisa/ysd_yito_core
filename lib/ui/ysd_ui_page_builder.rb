@@ -44,7 +44,6 @@ module UI
     
       @variables = {}
     
-      # Define the regions which will hold the contents    
       regions.each do |region|
         @variables.store(region.to_sym, []) 
       end
@@ -78,15 +77,18 @@ module UI
       
       locals.merge!(page_configuration)
 
-      page.styles    ||= ''
-      page.scripts   ||= ''
+      page.styles ||= ''
+      page.styles_source ||= ''
+      page.scripts ||= ''
+      page.scripts_source ||= ''
       page.variables ||= {}
 
       page.styles  << get_styles(context)
+      page.styles_source << get_styles_source(context) 
       page.scripts << get_scripts(context)
-      page.variables.merge!(pre_processors(context))
+      page.scripts_source << get_scripts_source(context)
+      page.variables.merge!(pre_processors(page, context))
 
-      # Renders the page
       if page_template_path = find_template(context, layout)
         page_template = Tilt.new(page_template_path) 
         page_render = page_template.render(app, locals.merge({:page => page}))          
@@ -128,7 +130,22 @@ module UI
       return page_css.join
     
     end
-   
+    
+    #
+    # Get the styles source
+    #
+    def get_styles_source(context)
+
+      styles = Plugins::Plugin.plugin_invoke_all('page_style_source', context)
+
+      page_css_source = styles.map do |style_source|
+        "<style type=\"text/css\">#{style_source}</style>"
+      end
+
+      return page_css_source.join
+
+    end
+
     #
     # Get the scripts
     #
@@ -146,15 +163,30 @@ module UI
       return page_scripts.join
     
     end
-            
+    
+    #
+    # Get the scripts source
+    #        
+    def get_scripts_source(context)
+
+      scripts = Plugins::Plugin.plugin_invoke_all('page_script_source', context)
+      
+      page_scripts = scripts.map do |script_source|
+        "<script type=\"text/javascript\">#{script_source}</script>"
+      end
+
+      return page_scripts.join
+
+    end
+
     #
     # Executes the preprocessors the get the sections of the page
     #
-    def pre_processors(context)
+    def pre_processors(page, context)
       
       # Load the variables hash with the pre processors results
 
-      Plugins::Plugin.plugin_invoke_all('page_preprocess', context).each do |preprocessor|
+      Plugins::Plugin.plugin_invoke_all('page_preprocess', page, context).each do |preprocessor|
         preprocessor.each do |key, value| 
           if not @variables.has_key?(key.to_sym)             
             @variables.store(key.to_sym,[])  

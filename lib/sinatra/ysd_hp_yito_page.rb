@@ -16,7 +16,12 @@ module Sinatra
     #  Options to the render
     #
     def page(page, options={})
-                          
+      
+      if SystemConfiguration::Variable.get_value('site.cache.enabled','false').to_bool and
+         user and user.belongs_to?('anonymous')
+        cache_control :public, :max_age => (page.cache_page_life || SystemConfiguration::Variable.get_value('site.cache.page_life'))
+      end                    
+      
       page = UI::PageBuilder.build(page, {:app => self}, options)
        
     end
@@ -73,12 +78,12 @@ module Sinatra
             page_body.force_encoding('utf-8')
           end          
 
-          the_page = UI::Page.new(:title => page_data[:title], 
-                                  :author => page_data[:author], 
-                                  :keywords => page_data[:keywords], 
-                                  :language => page_data[:language], 
-                                  :description => page_data[:description], 
-                                  :summary => page_data[:summary],
+          the_page = UI::Page.new(:title => options[:page_title] || page_data[:title], 
+                                  :author => options[:page_author] || page_data[:author], 
+                                  :keywords => options[:page_keywords] || page_data[:keywords], 
+                                  :language => options[:page_language] || page_data[:language], 
+                                  :description => options[:page_description] || page_data[:description], 
+                                  :summary => options[:page_summary] || page_data[:summary],
                                   :content => page_body )
 
           page(the_page, options)

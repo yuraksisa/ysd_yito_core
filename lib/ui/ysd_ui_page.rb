@@ -15,7 +15,8 @@ module UI
      attr_accessor :language    
      attr_accessor :description 
      attr_accessor :content
-     attr_accessor :variables  
+     attr_accessor :variables
+     attr_accessor :cache_page_life  
 
      def initialize(opts)
        
@@ -32,6 +33,7 @@ module UI
        @summary = opts[:summary] if opts.has_key?(:summary)
        @content = opts[:content] if opts.has_key?(:content)
        @variables = opts[:variables] if opts.has_key?(:variables)
+       @cache_page_life = opts[:cache_page_life] if opts.has_key?(:cache_page_life)
 
      end
 

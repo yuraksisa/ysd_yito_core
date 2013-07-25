@@ -12,6 +12,13 @@ module Huasi
     #
     def install(context={})
             
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.cache.enabled'},
+                                                      {:value => 'false', :description => 'page cache enabled', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.cache.page_life'},
+                                                      {:value => '180', :description => 'page cache life in seconds', :module => :yito_core})
+
         SystemConfiguration::Variable.first_or_create({:name => 'site.title'},
                                                        {:value => 'Yito Site', :description => 'site title', :module => :yito_core})
 

@@ -27,24 +27,31 @@
 
             <div class="elements-container">
               <div class="top-navigation-bar navigation-bar" style="display:none">
-                <div class="navigation-bar-crud-buttons">
-                  <button class="form-button new-entity-button action-button entity-management-button" title="new"><%= t.entitymanagement.new %></button>
-                  <button class="form-button reload-entities-button action-button entity-management-button" title="reload">&nbsp;</button>
-                  <button class="form-button delete-all-entities-button action-button entity-management-button" title="clear" style="display:none"><%= t.entitymanagement.clear %></button>
-                </div>
-                <!-- Search -->
-                <div class="elements-search" style="display:none">
-                  <form>
-                    <div class="form-row">
-                      <input type="text" name="search" class="search-entity-input" maxlength="60"/>
-                      <input type="button" class="search-entity-button" value="<%=t.entitymanagement.search%>"/>
+                <div class="container_12">
+                  <div class="grid_2">
+                    <div class="navigation-bar-crud-buttons">
+                       <button class="form-button new-entity-button action-button entity-management-button" title="new"><%= t.entitymanagement.new %></button>
+                       <button class="form-button reload-entities-button action-button entity-management-button" title="reload">&nbsp;</button>
+                       <button class="form-button delete-all-entities-button action-button entity-management-button" title="clear" style="display:none"><%= t.entitymanagement.clear %></button>
                     </div>
-                  </form>
-                </div>     
-                <div class="navigation-bar-nav-buttons">
-                  <span class="elements-summary smaller_text"></span>
-                  <button class="form-button previous-page-button navigation-button entity-management-button" title="previous page">&lt;</button>
-                  <button class="form-button next-page-button navigation-button entity-management-button" title="next page">&gt;</button>
+                  </div>
+                  <div class="grid_7">
+                    <div class="elements-search" style="display:none">
+                    <form>
+                      <div class="form-row">
+                        <input type="text" name="search" class="search-entity-input" maxlength="60"/>
+                        <input type="button" class="search-entity-button" value="<%=t.entitymanagement.search%>"/>
+                      </div>
+                    </form>
+                    </div>
+                  </div>  
+                  <div class="grid_3">
+                    <div class="navigation-bar-nav-buttons">
+                       <span class="elements-summary smaller_text"></span>
+                       <button class="form-button previous-page-button navigation-button entity-management-button" title="previous page">&lt;</button>
+                       <button class="form-button next-page-button navigation-button entity-management-button" title="next page">&gt;</button>
+                    </div>
+                  </div>  
                 </div>                           
               </div>   
               <!-- Contains the element list -->

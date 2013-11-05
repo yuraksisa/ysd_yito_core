@@ -125,6 +125,29 @@ module Sinatra
         
     end
     
+    #
+    # Find resources which names matches the regular expression
+    #
+    # @param resource_regexp Regular expresion
+    #
+    # @return Array
+    #
+    def find_resources(resource_regexp)
+
+      views_list = Array(settings.views).clone
+      views_list << File.join(Themes::ThemeManager.instance.selected_theme.root_path, 'template')
+
+      resources = views_list.inject([]) do |result, view_directory|
+         Dir.foreach(view_directory) do |view_directory_file|
+           result << view_directory_file if File.file?(File.join(view_directory, view_directory_file)) and resource_regexp.match(view_directory_file)
+         end
+         result
+      end
+
+      resources.sort.uniq
+
+    end
+
     # ============== SINATRA EXTENSIONS =============================
     
     #
@@ -160,7 +183,8 @@ module Sinatra
       #puts "TF : Not found #{name}"
     
     end      
-     
+    
+
   end #YitoHelper
 end #Sinatra 
   

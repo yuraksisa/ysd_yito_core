@@ -19,6 +19,12 @@ module Huasi
         SystemConfiguration::Variable.first_or_create({:name => 'site.cache.page_life'},
                                                       {:value => '180', :description => 'page cache life in seconds', :module => :yito_core})
 
+        SystemConfiguration::Variable.first_or_create({:name => 'site.extra_styles'},
+                                                       {:value => '', :description => 'Extra links href separated by comma', :module => :yito_core})   
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.extra_scripts'},
+                                                       {:value => '', :description => 'Extra scripts sources separated by comma', :module => :yito_core})
+
         SystemConfiguration::Variable.first_or_create({:name => 'site.title'},
                                                        {:value => 'Yito Site', :description => 'site title', :module => :yito_core})
 
@@ -36,7 +42,6 @@ module Huasi
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.domain'},
                                                        {:value => '', :description => 'site domain', :module => :cms})   
-
 
     end
 

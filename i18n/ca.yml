@@ -15,6 +15,9 @@ entitymanagement:
   back: Tornar    
   close: Tancar
   complements: Més
+  success: Done
+  warning: Warning
+  error: Error
 import_form:
   file:
     label: Fitxer

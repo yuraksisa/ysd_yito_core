@@ -15,6 +15,9 @@ entitymanagement:
   back: Volver
   close: Cerrar
   complements: Más
+  success: Done
+  warning: Warning
+  error: Error
 import_form:
   file:
     label: Fichero

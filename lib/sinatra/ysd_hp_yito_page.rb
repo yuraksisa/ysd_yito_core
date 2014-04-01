@@ -60,8 +60,8 @@ module Sinatra
       begin
             
         resource_name = resource_name.to_s if resource_name.is_a?(Symbol)
-              
-        if path=get_path(resource_name) # Search the resource in the views path            
+ 
+        if path=get_path(resource_name)            
           
           page_data = parse_page_file(path).symbolize_keys
 
@@ -78,15 +78,23 @@ module Sinatra
             page_body.force_encoding('utf-8')
           end          
 
-          the_page = UI::Page.new(:title => options[:page_title] || page_data[:title], 
-                                  :author => options[:page_author] || page_data[:author], 
-                                  :keywords => options[:page_keywords] || page_data[:keywords], 
-                                  :language => options[:page_language] || page_data[:language], 
-                                  :description => options[:page_description] || page_data[:description], 
-                                  :summary => options[:page_summary] || page_data[:summary],
-                                  :content => page_body )
+          page_build = { :title => options[:page_title] || page_data[:title], 
+                         :author => options[:page_author] || page_data[:author], 
+                         :keywords => options[:page_keywords] || page_data[:keywords], 
+                         :language => options[:page_language] || page_data[:language], 
+                         :description => options[:page_description] || page_data[:description], 
+                         :summary => options[:page_summary] || page_data[:summary],
+                         :content => page_body }
 
-          page(the_page, options)
+          if js_path = get_path("#{resource_name}.js")
+            page_build.store(:scripts_source, Tilt.new(js_path).render(self, options[:locals]))
+          end
+
+          if css_path = get_path("#{resource_name}.css")
+            page_build.store(:styles_source, Tilt.new(css_path).render(self, options[:locals]))
+          end
+
+          page(UI::Page.new(page_build), options)
             
         else
           puts "Resource Not Found. Path= #{request.path_info} Resource name= #{resource_name}"

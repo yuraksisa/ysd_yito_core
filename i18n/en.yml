@@ -14,7 +14,10 @@ entitymanagement:
   cancel: Cancel
   back: Back
   close: Close
-  complements: More  
+  complements: More 
+  success: Done
+  warning: Warning
+  error: Error   
 import_form:
   file:
     label: File

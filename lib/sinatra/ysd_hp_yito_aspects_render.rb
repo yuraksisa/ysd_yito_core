@@ -18,7 +18,7 @@ module Sinatra
 
         context = {:app => self}
         result = {}
-        
+
         if model = (Plugins::ModelAspect.registered_models.select { |m| m.target_model.to_sym == model.to_sym }).first
           aspects_render=UI::EntityManagementAspectRender.new(context, model.aspects) 
           result = aspects_render.render(model)

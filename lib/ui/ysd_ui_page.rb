@@ -16,7 +16,8 @@ module UI
      attr_accessor :description 
      attr_accessor :content
      attr_accessor :variables
-     attr_accessor :cache_page_life  
+     attr_accessor :cache_page_life
+     attr_accessor :admin_page  
 
      def initialize(opts)
        

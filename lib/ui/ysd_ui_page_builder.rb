@@ -64,6 +64,7 @@ module UI
     def build_page(page, context, options={})
       
       app = context[:app]
+
       locals = options[:locals] || {} 
       layout = if options.has_key?(:layout)
                  if options[:layout]
@@ -79,7 +80,10 @@ module UI
       build_styles_scripts(context, page)
       page.variables ||= {}
       page.variables.merge!(pre_processors(page, context))
-       
+      page.admin_page = is_admin_page?(app)
+
+      p "ADMIN : #{page.admin_page}"
+
       if template = find_template(context, layout) and not template.strip.empty?
         page_template = Tilt.new('erb') { template }
         page_render = page_template.render(app, locals.merge({:page => page}))
@@ -96,6 +100,29 @@ module UI
     
     private
     
+    #
+    # Check if the page belongs to the admin area
+    #
+    def is_admin_page?(app)
+
+      page_requested = if app.respond_to?(:request)
+                         if app.request.respond_to?(:path_info)
+                           app.request.path_info
+                         else
+                           nil
+                         end
+                       else
+                         nil
+                       end
+
+      admin_page = if page_requested 
+                     page_requested.start_with?('/admin')
+                   else
+                     false
+                   end   
+
+    end
+
     #
     # Get the page configuration
     #

@@ -35,13 +35,23 @@ module Huasi
                                                        {:value => '', :description => 'site logo', :module => :yito_core})
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.theme'},
-                                                       {:value => 'default', :description => 'site theme', :module => :cms})   
+                                                       {:value => 'default', :description => 'site theme', :module => :yito_core})   
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.template_engine'},
                                                        {:value => 'erb', :description => 'default engine', :module => :yito_core})   
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.domain'},
-                                                       {:value => '', :description => 'site domain', :module => :cms})   
+                                                       {:value => '', :description => 'site domain', :module => :yito_core})   
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.front_page'},
+                                                      {:value => '/admin', :description => 'backend front page', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.user_front_page'},
+                                                      {:name => '/', :description => 'regular user admin area', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.anonymous_front_page'},
+                                                      {:value => '/', :description => 'public front page', :module => :yito_core})
+
 
     end
 

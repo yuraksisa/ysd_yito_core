@@ -82,8 +82,6 @@ module UI
       page.variables.merge!(pre_processors(page, context))
       page.admin_page = is_admin_page?(app)
 
-      p "ADMIN : #{page.admin_page}"
-
       if template = find_template(context, layout) and not template.strip.empty?
         page_template = Tilt.new('erb') { template }
         page_render = page_template.render(app, locals.merge({:page => page}))
@@ -116,7 +114,8 @@ module UI
                        end
 
       admin_page = if page_requested 
-                     page_requested.start_with?('/admin')
+                     page_requested.start_with?('/admin') or
+                     page_requested.start_with?('/dashboard')
                    else
                      false
                    end   

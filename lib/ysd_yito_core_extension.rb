@@ -78,5 +78,23 @@ module Huasi
                     
     end
 
+    #
+    # ---------- Path prefixes to be ignored ----------
+    #
+
+    #
+    # Ignore the following path prefixes in language processor
+    #
+    def ignore_path_prefix_language(context={})
+      %w(/dashboard /admin /api /render)
+    end
+
+    #
+    # Ignore the following path prefix in cms
+    #
+    def ignore_path_prefix_cms(context={})
+      %w(/dashboard /admin /api /render)
+    end
+
   end
 end

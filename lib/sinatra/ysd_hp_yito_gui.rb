@@ -151,6 +151,92 @@ module Sinatra
        return slider_js
     
      end     
+
+     #
+     # Render an input text 
+     #
+     # @param [String] value
+     # @param [String] variable name
+     # @param [String] label
+     # @param [Number] maxlength
+     # @param [Number] size
+     # @param [String] class name
+     #
+     def render_input_text(value, variable_name, label, maxlength, size, class_name='')
+
+         editor = <<-EDITOR 
+              <div style="style="display:inline-block">
+                <input type="text" name="#{variable_name}" id="#{variable_name}" 
+                class="fieldcontrol #{class_name}" maxlength="#{maxlength}" size="#{size}" 
+                value="#{value}" data-autosubmit="true"/>
+              </div>
+         EDITOR
+
+     end    
+
+     #
+     # Render a textarea 
+     #
+     # @param [String] Value
+     # @param [String] Variable name
+     # @param [String] The label
+     # @param [String] class name      
+     #
+     def render_textarea(value, variable_name, label, class_name='')
+
+         editor = <<-EDITOR 
+              <div style="style="display:inline-block;">
+                <textarea name="#{variable_name}" id="#{variable_name}" 
+                class="fieldcontrol #{class_name}" rows="5" data-autosubmit="true">#{value}</textarea>
+              </div>
+         EDITOR
+
+     end
+
+     #
+     # Render an input text with autosubmit
+     #
+     # @param [String] variable name
+     # @param [String] label
+     # @param [Number] maxlength
+     # @param [Number] size
+     # @param [String] class name
+     #
+     def render_input_text_autosubmit(action, value, variable_name, label, maxlength, size, class_name='')
+
+         editor = <<-EDITOR 
+           <form name="#{variable_name}" action="#{action}" method="POST" 
+                 data-remote="ajax" data-remote-method="PUT" style="display:inline-block">
+              <div style="style="display:inline-block">
+                <input type="text" name="#{variable_name}" id="#{variable_name}" 
+                class="fieldcontrol #{class_name}" maxlength="#{maxlength}" size="#{size}" 
+                value="#{value}" data-autosubmit="true"/>
+              </div>
+           </form>
+         EDITOR
+
+     end    
+
+     #
+     # Render a textarea with autosubmit
+     #
+     # @param [String] The configuration variable name
+     # @param [String] The label
+     # @param [String] class name      
+     #
+     def render_textarea_autosubmit(action, value, variable_name, label, class_name='')
+
+         editor = <<-EDITOR 
+           <form name="#{variable_name}" action="#{action}" method="PUT" 
+                 data-remote="ajax" data-remote-method="PUT" style="display:inline-block">
+              <div style="style="display:inline-block;">
+                <textarea name="#{variable_name}" id="#{variable_name}" 
+                class="fieldcontrol #{class_name}" rows="5" data-autosubmit="true">#{value}</textarea>
+              </div>
+           </form>
+         EDITOR
+
+     end
       
   end
 end

@@ -70,8 +70,13 @@ module Sinatra
                             else
                               SystemConfiguration::Variable.get_value('site_template_engine') || 'erb'
                             end
-          
-          page_template = Tilt[template_engine].new { page_data[:body] }
+
+          body = page_data[:body] || ""
+          if String.method_defined?(:force_encoding)
+            body.force_encoding('utf-8')
+          end          
+
+          page_template = Tilt[template_engine].new { body }
           page_body  = page_template.render(self, options[:locals])     
           
           if String.method_defined?(:force_encoding)

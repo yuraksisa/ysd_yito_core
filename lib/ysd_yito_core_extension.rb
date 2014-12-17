@@ -47,7 +47,7 @@ module Huasi
                                                       {:value => '/admin', :description => 'backend front page', :module => :yito_core})
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.user_front_page'},
-                                                      {:name => '/', :description => 'regular user admin area', :module => :yito_core})
+                                                      {:value => '/', :description => 'regular user admin area', :module => :yito_core})
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.anonymous_front_page'},
                                                       {:value => '/', :description => 'public front page', :module => :yito_core})

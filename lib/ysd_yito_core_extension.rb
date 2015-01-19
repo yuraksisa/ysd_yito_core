@@ -44,10 +44,10 @@ module Huasi
                                                        {:value => '', :description => 'site domain', :module => :yito_core})   
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.front_page'},
-                                                      {:value => '/admin', :description => 'backend front page', :module => :yito_core})
+                                                      {:value => '/admin', :description => 'staff backend front page', :module => :yito_core})
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.user_front_page'},
-                                                      {:value => '/', :description => 'regular user admin area', :module => :yito_core})
+                                                      {:value => '/profile', :description => 'user front page', :module => :yito_core})
 
         SystemConfiguration::Variable.first_or_create({:name => 'site.anonymous_front_page'},
                                                       {:value => '/', :description => 'public front page', :module => :yito_core})

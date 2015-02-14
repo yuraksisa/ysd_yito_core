@@ -89,7 +89,8 @@ module Sinatra
                          :language => options[:page_language] || page_data[:language], 
                          :description => options[:page_description] || page_data[:description], 
                          :summary => options[:page_summary] || page_data[:summary],
-                         :content => page_body }
+                         :content => page_body,
+                         :resource => "#{resource_name} #{options[:page_resource]}" }
 
           if js_path = get_path("#{resource_name}.js")
             page_build.store(:scripts_source, Tilt.new(js_path).render(self, options[:locals]))

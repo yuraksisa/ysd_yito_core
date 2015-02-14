@@ -5,18 +5,8 @@
           <div class="element-block">
 
             <div class="elements-header">
-              <% if defined?(element_action) and not element_action.empty? %>
-                <div class="element_actions" style="display:none">
-                   <%= element_action %>
-                </div>
-              <% end %>
-              <% if defined?(elements_actions) and not elements_actions.empty? %>
-                <div class="elements_actions" style="display:none">
-                   <%= elements_actions %>
-                </div>    
-              <% end %>  
               <!-- Title -->
-              <div class="elements-title">              
+              <div class="elements-title" style="display: none">              
               </div>             
               <!-- Description -->
               <div class="elements-description">
@@ -36,33 +26,40 @@
               </div> 
               <div class="top-navigation-bar navigation-bar" style="display:none">
                 <div class="container_12">
-                  <div class="grid_3">
-                    <div class="navigation-bar-crud-buttons">
-                       <button class="form-button new-entity-button action-button entity-management-button" title="new"><%= t.entitymanagement.new %></button>
-                       <button class="form-button reload-entities-button action-button entity-management-button" title="reload">&nbsp;</button>
-                       <button class="form-button delete-all-entities-button action-button entity-management-button" title="clear" style="display:none"><%= t.entitymanagement.clear %></button>
-                    </div>
+                  <div class="grid_4">
+                    <!-- Title -->
+                    <div class="elements-title">              
+                    </div>  
                   </div>
-                  <div class="grid_5">
+                  <div class="grid_3">
                     <span>&nbsp;</span>
                     <div class="elements-search" style="display:none">
                       <form>
                         <div class="form-row">
-                          <input type="text" name="search" class="search-entity-input" maxlength="60"/>
-                          <input type="button" class="search-entity-button" value="<%=t.entitymanagement.search%>"/>
+                          <input type="text" name="search" class="search-entity-input" maxlength="60" size="15"/>
+                          <input type="button" class="form-button search-entity-button" value="<%=t.entitymanagement.search%>"/>
                         </div>
                       </form>
                     </div>
                   </div>  
-                  <div class="grid_4">
+                  <div class="grid_5">
+                    <div class="navigation-bar-crud-buttons">
+                       <button class="form-button reload-entities-button action-button entity-management-button" title="reload"><%= t.entitymanagement.reload %></button>
+                       <button class="form-button new-entity-button action-button entity-management-button" title="new"><%= t.entitymanagement.new %></button>
+                    </div>                    
                     <div class="navigation-bar-nav-buttons">
-                       <span class="elements-summary smaller_text"></span>
                        <button class="form-button previous-page-button navigation-button entity-management-button" title="previous page">&lt;</button>
+                       <span class="elements-summary smaller_text left-margin"></span>
                        <button class="form-button next-page-button navigation-button entity-management-button" title="next page">&gt;</button>
                     </div>
                   </div>  
                 </div>   
               </div> 
+              <% if defined?(elements_actions) and not elements_actions.empty? %>
+                <div class="elements_actions" style="display:none">
+                   <%= elements_actions %>
+                </div>    
+              <% end %>               
               <!-- Contains the element list -->
               <div class="elements-list">
               </div>
@@ -94,14 +91,30 @@
             
             <div class="element-form-container" style="display:none">
               <div class="top-navigation-bar navigation-bar">
-                <button class="form-button page-navigation navigation-button entity-management-button" title="list"><%= t.entitymanagement.list %></button>            
-                <button class="form-button delete-entity-button action-button entity-management-button" title="delete"><%= t.entitymanagement.delete %></button>   
-                <div class="navigation-bar-nav-buttons">
-                   <span class="elements-summary"></span>
-                   <button class="form-button previous-element-button navigation-button entity-management-button" title="previous entity">&lt;</button>
-                   <button class="form-button next-element-button navigation-button entity-management-button" title="next entity">&gt;</button>
-                </div>                
-              </div>         
+                <div class="container_12">
+                  <div class="grid_4">
+                    <!-- Title -->
+                    <div class="elements-title">              
+                    </div>  
+                  </div>
+                  <div class="grid_8">
+                    <div class="navigation-bar-crud-buttons">
+                     <button class="form-button page-navigation navigation-button entity-management-button" title="list"><%= t.entitymanagement.list %></button>            
+                     <button class="form-button delete-entity-button action-button entity-management-button" title="delete"><%= t.entitymanagement.delete %></button>   
+                    </div>
+                    <div class="navigation-bar-nav-buttons">
+                       <button class="form-button previous-element-button navigation-button entity-management-button" title="previous entity">&lt;</button>
+                       <span class="elements-summary smaller_text left-margin"></span>
+                       <button class="form-button next-element-button navigation-button entity-management-button" title="next entity">&gt;</button>
+                    </div>                
+                  </div>
+                </div>
+              </div>      
+              <% if defined?(element_action) and not element_action.empty? %>
+                <div class="element_actions" style="display:none">
+                   <%= element_action %>
+                </div>
+              <% end %>                 
               <div id="element-form-detail" class="element-form-detail">
               </div>
               <div id="element-form-detail-message">

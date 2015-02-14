@@ -34,6 +34,7 @@ module Sinatra
       end
 
       opts.store(:locals, locals)
+      opts.store(:page_resource, :entity_management)
 
       # layout
       if request_data.has_key?(:params) and request_data[:params].has_key?('layout') and request_data[:params]['layout'] == 'no'

@@ -116,11 +116,12 @@ module UI
       p "PAGE REQUESTED: #{page_requested}"
 
       admin_page = if page_requested 
-                     page_requested.start_with?('/admin') or
+                     (page_requested.start_with?('/admin') or
                      page_requested.start_with?('/dashboard') or
                      page_requested.start_with?('/profile') or
                      page_requested.start_with?('/mail') or
-                     page_requested.start_with?('/community')
+                     page_requested.start_with?('/community')) and
+                     (not page_requested.start_with?('/profile/register'))
                    else
                      false
                    end   

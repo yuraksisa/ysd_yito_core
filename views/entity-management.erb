@@ -16,14 +16,6 @@
             <!-- Entities list -->
 
             <div class="elements-container">
-              <div class="advanced-search-container all-space bottom-margin top-margin all-border-dashed color-2 box-shadow" style="display:none">
-                <div class="container_12">
-                  <div class="grid_12">                    
-                     <div class="advanced-search">
-                     </div>
-                  </div>
-                </div>
-              </div> 
               <div class="top-navigation-bar navigation-bar" style="display:none">
                 <div class="container_12">
                   <div class="grid_4">
@@ -31,27 +23,22 @@
                     <div class="elements-title">              
                     </div>  
                   </div>
-                  <div class="grid_3">
+                  <div class="grid_4">
                     <span>&nbsp;</span>
                     <div class="elements-search" style="display:none">
                       <form>
                         <div class="form-row">
-                          <input type="text" name="search" class="search-entity-input" maxlength="60" size="15"/>
-                          <input type="button" class="form-button search-entity-button" value="<%=t.entitymanagement.search%>"/>
+                          <input type="text" name="search" class="search-entity-input" maxlength="60" size="25"/>
+                          <input type="button" class="form-button search-entity-button left-margin" value="<%=t.entitymanagement.search%>"/>
                         </div>
                       </form>
                     </div>
                   </div>  
-                  <div class="grid_5">
+                  <div class="grid_4">
                     <div class="navigation-bar-crud-buttons">
                        <button class="form-button reload-entities-button action-button entity-management-button" title="reload"><%= t.entitymanagement.reload %></button>
                        <button class="form-button new-entity-button action-button entity-management-button" title="new"><%= t.entitymanagement.new %></button>
                     </div>                    
-                    <div class="navigation-bar-nav-buttons">
-                       <button class="form-button previous-page-button navigation-button entity-management-button" title="previous page">&lt;</button>
-                       <span class="elements-summary smaller_text left-margin"></span>
-                       <button class="form-button next-page-button navigation-button entity-management-button" title="next page">&gt;</button>
-                    </div>
                   </div>  
                 </div>   
               </div> 
@@ -59,11 +46,24 @@
                 <div class="elements_actions" style="display:none">
                    <%= elements_actions %>
                 </div>    
-              <% end %>               
+              <% end %>       
+              <div class="advanced-search-container all-space bottom-margin top-margin left-margin right-marginall-border-dashed color-2 box-shadow" style="display:none">
+                <div class="container_12">
+                  <div class="grid_12">                    
+                     <div class="advanced-search">
+                     </div>
+                  </div>
+                </div>
+              </div>                       
               <!-- Contains the element list -->
               <div class="elements-list">
               </div>
               <div class="bottom-navigation-bar navigation-bar" style="display: none">
+                    <div class="navigation-bar-nav-buttons">
+                       <button class="form-button previous-page-button navigation-button entity-management-button" title="previous page">&lt;</button>
+                       <span class="elements-summary smaller_text left-margin"></span>
+                       <button class="form-button next-page-button navigation-button entity-management-button" title="next page">&gt;</button>
+                    </div>                
               </div>   
             </div>  
             

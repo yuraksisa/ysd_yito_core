@@ -96,5 +96,12 @@ module Huasi
       %w(/dashboard /admin /api /render)
     end
 
+    #
+    # Ignore the following path prefix in breadcrumb
+    #
+    def ignore_path_prefix_breadcrumb(context={})
+      %w(/render)
+    end
+
   end
 end

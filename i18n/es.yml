@@ -18,6 +18,7 @@ entitymanagement:
   success: Done
   warning: Warning
   error: Error
+  all: Todos
 import_form:
   file:
     label: Fichero

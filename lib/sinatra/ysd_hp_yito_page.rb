@@ -19,7 +19,9 @@ module Sinatra
       
       if SystemConfiguration::Variable.get_value('site.cache.enabled','false').to_bool and
          user and user.belongs_to?('anonymous')
-        cache_control :public, :max_age => (page.cache_page_life || SystemConfiguration::Variable.get_value('site.cache.page_life'))
+        if !options.has_key?(:cache) or (options.has_key?(:cache) and options[:cache])
+          cache_control :public, :max_age => (page.cache_page_life || SystemConfiguration::Variable.get_value('site.cache.page_life'))
+        end
       end                    
       
       page = UI::PageBuilder.build(page, {:app => self}, options)
@@ -90,7 +92,8 @@ module Sinatra
                          :description => options[:page_description] || page_data[:description], 
                          :summary => options[:page_summary] || page_data[:summary],
                          :content => page_body,
-                         :resource => "#{resource_name} #{options[:page_resource]}" }
+                         :resource => "#{resource_name} #{options[:page_resource]}",
+                         :scripts => options[:scripts] || page_data[:scripts]}
 
           if js_path = get_path("#{resource_name}.js")
             page_build.store(:scripts_source, Tilt.new(js_path).render(self, options[:locals]))

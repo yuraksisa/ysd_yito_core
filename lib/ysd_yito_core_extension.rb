@@ -78,6 +78,21 @@ module Huasi
                     
     end
 
+    # routes
+    #
+    # Define the module routes, that is the url that allow to access the funcionality defined in the module
+    #
+    #
+    def routes(context={})    
+      routes = [{:path => '/admin',
+                 :regular_expression => /^\/admin$/, 
+                 :title => 'Panel de administración' , 
+                 :description => 'Inicio',
+                 :fit => 1,
+                 :module => :cms},                 
+                ]
+    end
+
     #
     # ---------- Path prefixes to be ignored ----------
     #

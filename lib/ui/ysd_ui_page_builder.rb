@@ -67,10 +67,10 @@ module UI
 
       locals = options[:locals] || {} 
       layout = if options.has_key?(:layout)
-                 if options[:layout]
-                   options[:layout]
-                 else
+                 if options[:layout] == 'no' || options[:layout] == 'false' || options[:layout] == false
                    'blank'
+                 else
+                   options[:layout]
                  end
                else 
                  'page_render'
@@ -148,7 +148,6 @@ module UI
     def build_styles_scripts(context, page)
 
       page.styles ||= ''
-      page.scripts ||= ''
 
       if page.styles_source and not page.styles_source.empty?
          page.styles_source = <<-STYLE 
@@ -158,6 +157,17 @@ module UI
          STYLE
       end
       page.styles_source ||= ''
+
+      if page.scripts and not page.scripts.empty?
+        scripts_detail = ''
+        page.scripts.each do |script_url|
+          scripts_detail << <<-SCRIPT
+            "<script type=\"text/javascript\" src=\"#{script_url}\"></script>"
+          SCRIPT
+        end
+        page.scripts = scripts_detail
+      end
+      page.scripts ||= ''
       
       if page.scripts_source and not page.scripts_source.empty? 
          page.scripts_source = <<-SCRIPT 

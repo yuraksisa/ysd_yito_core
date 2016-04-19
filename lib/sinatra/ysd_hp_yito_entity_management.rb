@@ -18,6 +18,7 @@ module Sinatra
       request_data = extract_em_request_info(entity_name, is_child)
 
       locals = opts[:locals] || {}
+      @title = breadcrumb
       
       locals.merge!(request_data[:locals]) if request_data.has_key?(:locals)
       locals.merge!(request_data[:info]) if request_data.has_key?(:info)
@@ -102,6 +103,25 @@ module Sinatra
 
       return result
 
+    end
+
+    private
+
+    def breadcrumb
+
+      p "breadcrumb: #{request.path_info}"
+
+      if request.path_info.empty? 
+        bc = ''
+      else
+        breadcrumb = Site::BreadcrumbBuilder.build(request.path_info, {:app => self})         
+        bc_render = SiteRenders::BreadcrumbRender.new(breadcrumb, {:app => self})
+        bc = bc_render.render          
+      end    
+
+      p "path: #{request.path_info} bc: #{bc}"
+
+      bc    
     end
   end #EntityManagementHelper
 end #Sinatra

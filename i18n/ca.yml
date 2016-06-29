@@ -20,7 +20,7 @@ entitymanagement:
   error: Error
   todos: Tots
 validations:
-  time_format_invalid: El format de l\'hora no és vàlid  
+  time_format_invalid: El format de l\'hora no és vàlid. El format és hh:mm  
 import_form:
   file:
     label: Fitxer

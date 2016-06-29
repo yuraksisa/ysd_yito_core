@@ -20,7 +20,7 @@ entitymanagement:
   error: Error
   all: Todos
 validations:
-  time_format_invalid: Formato de hora no válido
+  time_format_invalid: Formato de hora no válido. El formato es hh:mm
 import_form:
   file:
     label: Fichero

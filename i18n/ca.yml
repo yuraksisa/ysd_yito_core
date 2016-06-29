@@ -19,6 +19,8 @@ entitymanagement:
   warning: Warning
   error: Error
   todos: Tots
+validations:
+  time_format_invalid: El format de l\'hora no és vàlid  
 import_form:
   file:
     label: Fitxer

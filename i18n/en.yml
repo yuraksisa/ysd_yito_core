@@ -19,6 +19,8 @@ entitymanagement:
   warning: Warning
   error: Error   
   all: All
+validations:
+  time_format_invalid: Time format is not valid  
 import_form:
   file:
     label: File

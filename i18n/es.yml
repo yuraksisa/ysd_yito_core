@@ -19,6 +19,8 @@ entitymanagement:
   warning: Warning
   error: Error
   all: Todos
+validations:
+  time_format_invalid: Formato de hora no válido
 import_form:
   file:
     label: Fichero

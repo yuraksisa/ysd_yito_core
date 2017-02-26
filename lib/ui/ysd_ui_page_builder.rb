@@ -82,10 +82,12 @@ module UI
       page.variables.merge!(pre_processors(page, context))
       page.admin_page = is_admin_page?(app)
 
+      # Search in plugins (page_layout element)
       if template = find_template(context, layout) and not template.strip.empty?
         page_template = Tilt.new('erb') { template }
         page_render = page_template.render(app, locals.merge({:page => page}))
       else 
+        # Search in folders
         if page_template_path = find_template_path(context, layout)
           page_template = Tilt.new(page_template_path) 
           page_render = page_template.render(app, locals.merge({:page => page}))          

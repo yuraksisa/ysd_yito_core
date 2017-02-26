@@ -78,13 +78,23 @@ module Sinatra
        template = template_array[0..-2].join('/') + "/_#{template_array[-1]}"
        options = args.last.is_a?(Hash) ? args.pop : {}
        options.merge!(:layout => false)
+ 
        if collection = options.delete(:collection) then
-         collection.inject([]) do |buffer, member|
-           buffer << erb(:"#{template}", options.merge(:layout =>
-           false, :locals => {template_array[-1].to_sym => member}))
-           end.join("\n")
+         data = collection.inject([]) do |buffer, member|
+                  buffer << erb(:"#{template}", options.merge(:layout =>
+                  false, :locals => {template_array[-1].to_sym => member}))
+                end
+         data.join("\n")
        else
-         erb(:"#{template}", options)
+         if (template_content = Plugins::Plugin.plugin_invoke_all('page_layout', 
+                        {:app => self}, template[1,template.length]).first) and 
+           !template_content.empty?
+           page_template = Tilt.new('erb') { template_content }
+           page_render = page_template.render(app, options)
+         else 
+           erb(:"#{template}", options)
+         end  
+
        end
     end
     
@@ -160,11 +170,15 @@ module Sinatra
       
       # Add the selected theme template directory to the views directories
       
-      views_list = Array(views).clone
+      #views_list = Array(views).clone
+      #views_list << File.join(Themes::ThemeManager.instance.selected_theme.root_path, 'template')
+
+
+      # First: Include the theme folder and then project (in order to override)
+      views_list = []
       views_list << File.join(Themes::ThemeManager.instance.selected_theme.root_path, 'template')
-      
-      #puts "TF : searching #{name}"
-      
+      views_list.concat(Array(views))
+
       # Try to search the template in locale
       if (session[:locale])
       

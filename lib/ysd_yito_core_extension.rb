@@ -46,6 +46,48 @@ module Huasi
         SystemConfiguration::Variable.first_or_create({:name => 'site.front_page'},
                                                       {:value => '/admin', :description => 'staff backend front page', :module => :yito_core})
 
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.name'},
+                                                      {:value => '.', :description => 'Site company name', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.document_id'},
+                                                      {:value => '.', :description => 'Site company document id', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.phone_number'},
+                                                      {:value => '.', :description => 'Site company phone number', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.email'},
+                                                      {:value => '.', :description => 'Site company email', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.address_1'},
+                                                      {:value => '.', :description => 'Site company address 1', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.address_2'},
+                                                      {:value => '.', :description => 'Site company address 2', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.city'},
+                                                      {:value => '.', :description => 'Site company city', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.state'},
+                                                      {:value => '.', :description => 'Site company state', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.zip'},
+                                                      {:value => '.', :description => 'Site company zip', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.country'},
+                                                      {:value => '.', :description => 'Site company country', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.facebook'},
+                                                      {:value => '.', :description => 'Site company facebook', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.twitter'},
+                                                      {:value => '.', :description => 'Site company twitter', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.instagram'},
+                                                      {:value => '.', :description => 'Site company instagram', :module => :yito_core})
+
+        SystemConfiguration::Variable.first_or_create({:name => 'site.company.linkedin'},
+                                                      {:value => '.', :description => 'Site company linkedin', :module => :yito_core})
+
         SystemConfiguration::Variable.first_or_create({:name => 'site.user_front_page'},
                                                       {:value => '/profile', :description => 'user front page', :module => :yito_core})
 

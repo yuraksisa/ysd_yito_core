@@ -96,12 +96,24 @@ module Sinatra
                          :resource => "#{resource_name} #{options[:page_resource]}",
                          :scripts => options[:scripts] || page_data[:scripts]}
 
-          if js_path = get_path("#{resource_name}.js")
-            page_build.store(:scripts_source, Tilt.new(js_path).render(self, options[:locals]))
+          if options.has_key?(:custom_js) and !options[:custom_js].nil? and !options[:custom_js].empty?
+            if js_path = get_path("#{options[:custom_js]}.js")
+              page_build.store(:scripts_source, Tilt.new(js_path).render(self, options[:locals]))
+            end
+          else
+            if js_path = get_path("#{resource_name}.js")
+              page_build.store(:scripts_source, Tilt.new(js_path).render(self, options[:locals]))
+            end
           end
 
-          if css_path = get_path("#{resource_name}.css")
-            page_build.store(:styles_source, Tilt.new(css_path).render(self, options[:locals]))
+          if options.has_key?(:custom_css) and !options[:custom_css].nil? and !options[:custom_css].empty?
+            if css_path = get_path("#{options[:custom_css]}.js")
+              page_build.store(:styles_source, Tilt.new(css_path).render(self, options[:locals]))
+            end
+          else
+            if css_path = get_path("#{resource_name}.css")
+              page_build.store(:styles_source, Tilt.new(css_path).render(self, options[:locals]))
+            end
           end
 
           page(UI::Page.new(page_build), options)

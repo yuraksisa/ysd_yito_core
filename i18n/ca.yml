@@ -1,43 +1,6 @@
-system_admin_menu:
-  apps_menu: Aplicacions  
-entitymanagement:
-  no_data: No hi ha dades
-  search: Cercar
-  new: Nou
-  reload: Recarregar
-  list: Tornar a la llista
-  edit: Edició
-  delete: Esborrar
-  clear: Netejar
-  update: Actualitzar
-  create: Crear 
-  cancel: Cancel.lar
-  back: Tornar    
-  close: Tancar
-  complements: Més
-  success: Done
-  warning: Warning
-  error: Error
-  todos: Tots
-validations:
-  time_format_invalid: El format de l\'hora no és vàlid. El format és hh:mm  
-import_form:
-  file:
-    label: Fitxer
-  import:
-    label: Importar 
-clone_form:
-  new_name:
-    label: Nou nom
-  clone:
-    label: Clonar
-aspects:
-  form:
-    aspect_aspect:
-      label: Aspecte
-    aspect_weight:
-      label: Pes (gestió)
-    aspect_render_weight:
-      label: Pes (vista)        
-    aspect_config:
-      label: Configurar  
+frontend_web:
+  powered_by_mybooking: Reserves gestionades per <a href="https://mybooking.es" target="_blank">mybooking</a>
+  company:
+    address: Adreça
+    phone_number: Telèfon
+    email: Correu electrònic

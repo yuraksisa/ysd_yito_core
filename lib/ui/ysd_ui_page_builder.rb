@@ -24,10 +24,10 @@ module UI
     def self.build(page, context, options={})
         
       # Creates an instance of the page
-      page_builder = PageBuilder.new(Themes::ThemeManager.instance.selected_theme.regions)
+      page_builder = PageBuilder.new(page, Themes::ThemeManager.instance.selected_theme.regions)
     
       # Builds the page
-      page_builder.build_page(page, context, options)
+      page_builder.build_page(context, options)
               
     end
 
@@ -35,13 +35,17 @@ module UI
 
     #
     # Constructor
-    # 
+    #
+    # @param [Object] page
+    #   The page to render
+    #     
     # @param [Array] regions
     #
     #   The page regions (retrieved from the theme)
     #
-    def initialize(regions)
+    def initialize(page, regions)
     
+      @page = page
       @variables = {}
     
       regions.each do |region|
@@ -52,8 +56,6 @@ module UI
  
     # Builds a page
     #
-    # @param [Object] page
-    #   The page to render
     #
     # @param [Object] context
     #   The context in which the render will be done
@@ -61,9 +63,11 @@ module UI
     # @param [Hash] options
     #   Render options
     #
-    def build_page(page, context, options={})
+    def build_page(context, options={})
       
       app = context[:app]
+
+      @page.admin_page = is_admin_page?(app)
 
       locals = options[:locals] || {} 
       layout = if options.has_key?(:layout)
@@ -73,26 +77,25 @@ module UI
                    options[:layout]
                  end
                else 
-                 'page_render'
+                 @page.admin_page ? 'page_render_admin' : 'page_render'
                end
-      
+
       locals.merge!(page_configuration)
-      build_styles_scripts(context, page)
-      page.variables ||= {}
-      page.variables.merge!(pre_processors(page, context))
-      page.admin_page = is_admin_page?(app)
+      build_styles_scripts(context)
+      @page.variables ||= {}
+      @page.variables.merge!(pre_processors(context))
 
       # Search in plugins (page_layout element)
       if template = find_template(context, layout) and not template.strip.empty?
         page_template = Tilt.new('erb') { template }
-        page_render = page_template.render(app, locals.merge({:page => page}))
-      else 
+        page_render = page_template.render(app, locals.merge({:page => @page}))
+      else
         # Search in folders
         if page_template_path = find_template_path(context, layout)
-          page_template = Tilt.new(page_template_path) 
-          page_render = page_template.render(app, locals.merge({:page => page}))          
+          page_template = Tilt.new(page_template_path)
+          page_render = page_template.render(app, locals.merge({:page => @page}))          
         else
-          page.content
+          @page.content
         end
       end
 
@@ -114,8 +117,6 @@ module UI
                        else
                          nil
                        end
-
-      p "PAGE REQUESTED: #{page_requested}"
 
       admin_page = if page_requested 
                      (page_requested.start_with?('/admin') or
@@ -147,43 +148,43 @@ module UI
     #
     # Configure the page styles and scripts
     #
-    def build_styles_scripts(context, page)
+    def build_styles_scripts(context)
 
-      page.styles ||= ''
+      @page.styles ||= ''
 
-      if page.styles_source and not page.styles_source.empty?
-         page.styles_source = <<-STYLE 
+      if @page.styles_source and not @page.styles_source.empty?
+         @page.styles_source = <<-STYLE 
            <style type=\"text/css\">
-             #{page.styles_source}
+             #{@page.styles_source}
            </style>
          STYLE
       end
-      page.styles_source ||= ''
+      @page.styles_source ||= ''
 
-      if page.scripts and not page.scripts.empty?
+      if @page.scripts and not @page.scripts.empty?
         scripts_detail = ''
-        page.scripts.each do |script_url|
+        @page.scripts.each do |script_url|
           scripts_detail << <<-SCRIPT
             "<script type=\"text/javascript\" src=\"#{script_url}\"></script>"
           SCRIPT
         end
-        page.scripts = scripts_detail
+        @page.scripts = scripts_detail
       end
-      page.scripts ||= ''
-      
-      if page.scripts_source and not page.scripts_source.empty? 
-         page.scripts_source = <<-SCRIPT 
+      @page.scripts ||= ''
+
+      if @page.scripts_source and not @page.scripts_source.empty? 
+         @page.scripts_source = <<-SCRIPT 
            <script type=\"text/javascript\">
-              #{page.scripts_source}
+              #{@page.scripts_source}
            </script>
          SCRIPT
       end
-      page.scripts_source ||= ''
+      @page.scripts_source ||= ''
 
-      page.styles  << get_styles(context)
-      page.styles_source << get_styles_source(context) 
-      page.scripts << get_scripts(context)
-      page.scripts_source << get_scripts_source(context)
+      @page.styles  << get_styles(context)
+      @page.styles_source << get_styles_source(context) 
+      @page.scripts << get_scripts(context)
+      @page.scripts_source << get_scripts_source(context)
 
     end
 
@@ -193,9 +194,18 @@ module UI
     def get_styles(context)
       
       styles = []    
-      styles.concat(Plugins::Plugin.plugin_invoke_all('page_style', context))
+      
+      # Theme styles
+      if @page.admin_page
+        styles.concat(Themes::ThemeManager.instance.selected_theme.backoffice_styles)   
+      else
+        styles.concat(Themes::ThemeManager.instance.selected_theme.frontend_styles)   
+      end
       styles.concat(Themes::ThemeManager.instance.selected_theme.styles)   
-      styles.concat(SystemConfiguration::Variable.get_value('site.extra_styles','').split(', '))
+
+      # Plugin styles
+      styles.concat(Plugins::Plugin.plugin_invoke_all('page_style', context, @page))
+
       styles.uniq!
       
       page_css = styles.map do |style_url|
@@ -211,7 +221,8 @@ module UI
     #
     def get_styles_source(context)
 
-      styles = Plugins::Plugin.plugin_invoke_all('page_style_source', context)
+      # Plugins styles
+      styles = Plugins::Plugin.plugin_invoke_all('page_style_source', context, @page)
 
       page_css_source = styles.map do |style_source|
         "<style type=\"text/css\">#{style_source}</style>"
@@ -227,9 +238,18 @@ module UI
     def get_scripts(context)
     
       scripts = []
+
+      # Theme scripts
       scripts.concat(Themes::ThemeManager.instance.selected_theme.scripts)       
-      scripts.concat(Plugins::Plugin.plugin_invoke_all('page_script', context))
-      scripts.concat(SystemConfiguration::Variable.get_value('site.extra_scripts','').split(', '))
+      if @page.admin_page
+        scripts.concat(Themes::ThemeManager.instance.selected_theme.backoffice_scripts)
+      else
+        scripts.concat(Themes::ThemeManager.instance.selected_theme.frontend_scripts)
+      end  
+
+      # Plugins scripts
+      scripts.concat(Plugins::Plugin.plugin_invoke_all('page_script', context, @page))
+
       scripts.uniq!
       
       page_scripts = scripts.map do |script_url|
@@ -245,7 +265,8 @@ module UI
     #        
     def get_scripts_source(context)
 
-      scripts = Plugins::Plugin.plugin_invoke_all('page_script_source', context)
+      # Plugin scripts
+      scripts = Plugins::Plugin.plugin_invoke_all('page_script_source', context, @page)
       
       page_scripts = scripts.map do |script_source|
         "<script type=\"text/javascript\">#{script_source}</script>"
@@ -258,11 +279,11 @@ module UI
     #
     # Executes the preprocessors the get the sections of the page
     #
-    def pre_processors(page, context)
+    def pre_processors(context)
       
       # Load the variables hash with the pre processors results
 
-      Plugins::Plugin.plugin_invoke_all('page_preprocess', page, context).each do |preprocessor|
+      Plugins::Plugin.plugin_invoke_all('page_preprocess', @page, context).each do |preprocessor|
         preprocessor.each do |key, value| 
           if not @variables.has_key?(key.to_sym)             
             @variables.store(key.to_sym,[])  
@@ -279,8 +300,12 @@ module UI
           page_components.sort! {|x,y| y.weight<=>x.weight} 
           render_page_components = ''
           
-          page_components.each do |page_component|  
-            render_page_components << page_component.render 
+          page_components.each do |page_component|
+            if page_component.respond_to?(:render)
+              render_page_components << page_component.render
+            elsif page_component.is_a?(String)
+              render_page_components << page_component
+            end
           end
  
           if String.method_defined?(:force_encoding)
@@ -301,7 +326,7 @@ module UI
     #
     def find_template(context, layout)
 
-      Plugins::Plugin.plugin_invoke_all('page_layout', {:app => context}, layout).first
+      Plugins::Plugin.plugin_invoke_all('page_layout', context, layout).join
 
     end
 

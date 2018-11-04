@@ -8,6 +8,7 @@ module Sinatra
     #
     # It serves an static resource (css, js, img)
     #
+    #
     # @param [String] resource_path
     #  The resource path. For example : /img/my-image.jgp
     # 
@@ -22,16 +23,28 @@ module Sinatra
     def serve_static_resource(resource_path, local_folder, extension=nil)
     
        #puts "searching: #{resource_path} * #{local_folder} * #{File.join(local_folder, resource_path)}"     
-                 
-       file_path = Themes::ThemeManager.instance.selected_theme.resource_path(resource_path, 'static', extension) ||
-                   File.expand_path(File.join(local_folder, resource_path))
-                      
-       if File.exists?(file_path)          
+
+       # Try to locate the resource in the theme
+       file_path = Themes::ThemeManager.instance.selected_theme.resource_path(resource_path, 'static', extension)
+
+       if file_path
          send_file(file_path)
        else
-         pass
+         # Try to locate the resource in the local folder
+         file_path = File.join(File.expand_path($0).gsub($0,''), 'public', resource_path)
+         if File.exist?(file_path)
+           send_file(file_path)
+         else
+           # Try to locate the resouce in a gem
+           file_path = File.expand_path(File.join(local_folder, resource_path))
+           if File.exist?(file_path)
+             send_file(file_path)
+           else
+             pass
+           end
+         end
        end
-    
+
     end
   
     # ========== UTILITIES TO BUILD A WEB PAGE ================

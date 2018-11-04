@@ -1,43 +1,6 @@
-system_admin_menu:
-  apps_menu: Applications
-entitymanagement:
-  no_data: There is no data
-  search: Search
-  new: New
-  reload: Refresh
-  list: Back to the list
-  edit: Edit
-  delete: Delete
-  clear: Clear  
-  update: Update
-  create: Create
-  cancel: Cancel
-  back: Back
-  close: Close
-  complements: More 
-  success: Done
-  warning: Warning
-  error: Error   
-  all: All
-validations:
-  time_format_invalid: Time format is not valid. The format is hh:mm  
-import_form:
-  file:
-    label: File
-  import:
-    label: Import 
-clone_form:
-  new_name:
-    label: New name
-  clone:
-    label: Clone
-aspects:
-  form:
-    aspect_aspect:
-      label: Aspect
-    aspect_weight:
-      label: Weight (management)
-    aspect_render_weight:
-      label: Weight (view)        
-    aspect_config:
-      label: Configure     
+frontend_web:
+  powered_by_mybooking: Powered by <a href="https://mybooking.es" target="_blank">mybooking</a>
+  company:
+    address: Address
+    phone_number: Phone number
+    email: E-mail

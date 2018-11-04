@@ -19,6 +19,7 @@ entitymanagement:
   warning: Warning
   error: Error
   all: Todos
+  errors_in_form: "El formulario contiene errores. Por favor, revíselo"  
 validations:
   time_format_invalid: Formato de hora no válido. El formato es hh:mm
 import_form:
@@ -40,4 +41,11 @@ aspects:
     aspect_render_weight:
       label: Peso (vista)     
     aspect_config:
-      label: Configurar 
+      label: Configurar
+frontend_web:
+  powered_by_mybooking: Reservas gestionadas por <a href="https://mybooking.es" target="_blank">mybooking</a>
+  company:
+    address: Dirección
+    phone_number: Teléfono
+    email: Correo electrónico
+

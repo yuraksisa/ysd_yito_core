@@ -14,11 +14,13 @@ module UI
      attr_accessor :keywords   
      attr_accessor :language    
      attr_accessor :description 
+     attr_accessor :summary
      attr_accessor :content
      attr_accessor :variables
      attr_accessor :cache_page_life
      attr_accessor :admin_page 
-     attr_accessor :resource 
+     attr_accessor :resource
+     attr_accessor :canonical_url 
 
      def initialize(opts)
        
@@ -37,6 +39,7 @@ module UI
        @variables = opts[:variables] if opts.has_key?(:variables)
        @cache_page_life = opts[:cache_page_life] if opts.has_key?(:cache_page_life)
        @resource = opts[:resource] if opts.has_key?(:resource)
+       @canonical_url = opts[:canonical_url] if opts.has_key?(:canonical_url)
 
      end
 

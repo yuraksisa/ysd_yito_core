@@ -78,7 +78,7 @@ module Sinatra
             body.force_encoding('utf-8')
           end          
           
-          # Builds the page body 
+          # Builds the page body
           page_template = Tilt[template_engine].new { body }
           page_body  = page_template.render(self, options[:locals])     
           

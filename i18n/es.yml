@@ -3,6 +3,7 @@ system_admin_menu:
 entitymanagement:
   no_data: No hay datos
   search: Buscar
+  select: Seleccionar
   new: Nuevo
   reload: Recargar
   list: Volver a la lista

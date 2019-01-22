@@ -15,6 +15,7 @@ module Sinatra
     #
     def load_em_page(template, entity_name, is_child, opts={})
 
+      #p "LOAD-EM-PAGE-START"
       request_data = extract_em_request_info(entity_name, is_child)
 
       locals = opts[:locals] || {}
@@ -41,7 +42,7 @@ module Sinatra
       if request_data.has_key?(:params) and request_data[:params].has_key?('layout') and request_data[:params]['layout'] == 'no'
       	opts.store(:layout, false)
       end
-
+      #p "LOAD-EM-PAGE-END"
       load_page(template, opts)
 
     end
@@ -109,7 +110,7 @@ module Sinatra
 
     def breadcrumb
 
-      p "breadcrumb: #{request.path_info}"
+      #p "breadcrumb: #{request.path_info}"
 
       if request.path_info.empty? 
         bc = ''
@@ -119,7 +120,7 @@ module Sinatra
         bc = bc_render.render          
       end    
 
-      p "path: #{request.path_info} bc: #{bc}"
+      #p "path: #{request.path_info} bc: #{bc}"
 
       bc    
     end

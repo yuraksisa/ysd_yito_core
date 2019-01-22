@@ -60,7 +60,7 @@ module Sinatra
     def load_page(resource_name, options={})       
       
       begin
-            
+        #p "LOAD-PAGE-START"    
         resource_name = resource_name.to_s if resource_name.is_a?(Symbol)
  
         if path=get_path(resource_name)            
@@ -70,7 +70,8 @@ module Sinatra
           template_engine = if page_data.has_key?(:template_engine)
                               page_data[:template_engine] 
                             else
-                              SystemConfiguration::Variable.get_value('site_template_engine') || 'erb'
+                              # [NOTE 2019.01.22] Resources optimization : 'erb' by default
+                              'erb' # SystemConfiguration::Variable.get_value('site_template_engine') || 'erb'
                             end
 
           body = page_data[:body] || ""
@@ -115,7 +116,7 @@ module Sinatra
               page_build.store(:styles_source, Tilt.new(css_path).render(self, options[:locals]))
             end
           end
-
+          #p "LOAD-PAGE-END" 
           page(UI::Page.new(page_build), options)
             
         else
